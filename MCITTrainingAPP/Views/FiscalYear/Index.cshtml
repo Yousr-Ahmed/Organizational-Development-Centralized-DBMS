@@ -1,0 +1,315 @@
+﻿<div class="container-fluid">
+    <div class="fade-in">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header"><h3 class="text-center"><strong>العام المالي</strong></h3></div>
+                    <div class="card-body">
+                        <div id="content" class="col-md-12">
+                            @if (User.IsInRole("Administrator"))
+                            {
+                            <button type="button" class="btn btn-default btn_main" data-bs-toggle="modal" data-bs-target="#myModal" onclick="clearTextBox();">إضافة عام مالي</button><br /><br />
+                            }
+                            <table id="YearJqueryDataTable" class="jDataTable table table-striped dt-responsive  table-hover" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th style="display:none;visibility:hidden">
+                                            ID
+                                        </th>
+                                        <th>
+                                            العام المالي
+                                        </th>
+                                        <th>
+                                            التحكم
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="tbody">
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+
+
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">إضافة عام مالي</h4>
+                        <button type="button" class="close" data-bs-dismiss="modal">×</button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group" style="display:none;visibility:hidden">
+                                <label for="FiscalYearID">ID</label>
+                                <input type="text" class="form-control" id="FiscalYearID" name="FiscalYearID" placeholder="FiscalYearID" disabled="disabled" />
+                            </div>
+                            <div class="form-group">
+                                <label for="Name">العام المالي</label>
+                                <input type="text" class="form-control" id="FiscalYear" name="FiscalYear" placeholder="العام المالي" maxlength="9" />
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="btnAdd" onclick="return Add();">إضافة</button>
+                        <button type="button" class="btn btn-outline-warning" id="btnUpdate" style="display:none;" onclick="Update();">تعديل</button>
+                        <button type="button" class="btn btn-default" data-bs-dismiss="modal">إغلاق</button>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+@section Scripts {
+
+    <script type="text/javascript">
+
+        ////Load Data in Table when documents is ready
+        $(document).ready(function () {
+            loadData();
+        });
+
+        //Load Data function
+        function loadData() {
+            $.ajax({
+                url:'@Url.Action("List", "FiscalYear")',  //"/FiscalYear/List",
+                type: "GET",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    var table = $('.jDataTable').DataTable();
+                    table.destroy();
+                    var table = $('.jDataTable').DataTable({
+                        "data": result,
+                        "columnDefs": [
+                            {
+                                "targets": [0],
+                                "visible": false,
+                                "searchable": false
+                            },
+                            {
+                                    "targets": [2], //third column
+                                    "visible": @(User.IsInRole("Administrator") ? "true" : "false"),
+                            }
+
+                        ],
+                        "columns": [
+                            { "data": "FiscalYearID" },
+                            { "data": "FiscalYear" },
+                            {
+                                "mRender": function (data, type, row) {
+                                    return '<a href="#" class="btn btn-outline-warning" onclick="return getbyID(' + row.FiscalYearID + ')">تعديل</a>   <a href="#" class="btn btn-outline-danger" onclick="Delele(' + row.FiscalYearID + ');return false;">حذف</a></td>';
+                                }
+                            }
+                        ],
+
+                        "aLengthMenu": [
+                            [5, 10, 25, -1],
+                            [5, 10, 25, "All"]
+                        ],
+                        "iDisplayLength": 5,
+
+                        "language": {
+                            "sProcessing": "جارٍ التحميل...",
+                            "sLengthMenu": "أظهر _MENU_ سجلات",
+                            "sZeroRecords": "لم يعثر على أية سجلات",
+                            "sInfo": "إظهار _START_ إلى _END_ من أصل _TOTAL_ سجل",
+                            "sInfoEmpty": "يعرض 0 إلى 0 من أصل 0 سجل",
+                            "sInfoFiltered": "(منتقاة من مجموع _MAX_ سجل)",
+                            "sInfoPostFix": "",
+                            "sSearch": "ابحث:",
+                            "sUrl": "",
+                            "oPaginate": {
+                                "sFirst": "الأول",
+                                "sPrevious": "السابق",
+                                "sNext": "التالي",
+                                "sLast": "الأخير"
+                            }
+                        }
+
+
+                    });
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+            })
+
+        }
+
+
+        //Add Data Function
+        function Add() {
+            var res = validate();
+            if (res == false) {
+                return false;
+            }
+
+            var Year = {};
+            Year.FiscalYear = $("#FiscalYear").val();
+
+
+
+            $.ajax({
+                type: "POST",
+                url:'@Url.Action("Add", "FiscalYear")',  //"/FiscalYear/Add",
+                data: '{FiscalYear: ' + JSON.stringify(Year) + '}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    if (result == false) {
+                        ShowErrMess("برجاء المحاولة مرة أخري");
+                    }
+                    else {
+                        ShowSuccessMess("تمت الإضافة بنجاح");
+                    }
+                    loadData();
+                    $('#myModal').modal('hide');
+                    $('body').removeClass('modal-open');
+                    $('.modal-backdrop').remove();
+
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status);
+                    alert(thrownError);
+                }
+            });
+
+
+        }
+
+
+    function getbyID(ID) {
+            $('#FiscalYear').css('border-color', 'lightgrey');
+            $.ajax({
+                url:'@Url.Action("GetbyID", "FiscalYear")',   //"/FiscalYear/GetbyID/" + FiscalYearID,
+                data: { 'ID': ID },
+                typr: "GET",
+                contentType: "application/json;charset=UTF-8",
+                dataType: "json",
+                success: function (result) {
+                    $('#FiscalYearID').val(result.FiscalYearID);
+                    $('#FiscalYear').val(result.FiscalYear);
+
+                    $('#myModal').modal('show');
+                    $('#btnUpdate').show();
+                    $('#btnAdd').hide();
+
+
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+            return false;
+        }
+
+        //function for updating employee's record
+        function Update() {
+            var res = validate();
+            if (res == false) {
+                return false;
+            }
+
+            var Year = {};
+            Year.FiscalYearID = $("#FiscalYearID").val();
+            Year.FiscalYear = $("#FiscalYear").val();
+
+            $.ajax({
+                url:'@Url.Action("Update", "FiscalYear")',  // "/TrainingProjects/FiscalYear/Update",
+                data: '{FiscalYear: ' + JSON.stringify(Year) + '}',
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    if (result == false) {
+                        ShowErrMess("برجاء المحاولة مرة أخري");
+                    }
+                    else {
+                        ShowSuccessMess("تم التعديل بنجاح");
+                    }
+                    loadData();
+                    $('#myModal').modal('hide');
+                    $('#FiscalYearID').val("");
+                    $('#FiscalYear').val("");
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+        }
+
+
+
+        //function for deleting employee's record
+        function Delele(ID) {
+            var ans = confirm("هل تريد تأكيد الحذف؟");
+            if (ans) {
+                $.ajax({
+                    url: '@Url.Action("Delete", "FiscalYear")', //"/TrainingProjects/FiscalYear/Delete/" + ID,
+                    data: { 'ID': ID },
+                    type: "GET",
+                    contentType: "application/json;charset=UTF-8",
+                    dataType: "json",
+                    success: function (result) {
+                        if (result == false) {
+                            ShowErrMess("لا يمكنك الحذف(هناك بيانات مرتبطة بهذا السجل)");
+                        }
+                        else {
+                            ShowSuccessMess("تم الحذف بنجاح");
+                        }
+                        loadData();
+                    },
+                    error: function (errormessage) {
+                        alert(errormessage.responseText);
+                    }
+                });
+            }
+
+        }
+
+        //Function for clearing the textboxes
+        function clearTextBox() {
+            $('#FiscalYearID').val("");
+            $('#FiscalYear').val("");
+            $('#btnUpdate').hide();
+            $('#btnAdd').show();
+            $('#FiscalYear').css('border-color', 'lightgrey');
+        }
+        //Valdidation using jquery
+        function validate() {
+            var isValid = true;
+            if ($('#FiscalYear').val().trim() == "") {
+                $('#FiscalYear').css('border-color', 'Red');
+                isValid = false;
+            }
+            else {
+                $('#FiscalYear').css('border-color', 'lightgrey');
+            }
+            return isValid;
+        }
+
+
+    </script>
+
+
+
+
+}

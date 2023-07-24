@@ -1,0 +1,609 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<style>
+    .card {
+        margin: 20px;
+        color: white;
+        margin-left: 0.5rem !important;
+        margin-right: 0.5rem !important;
+    }
+
+    body {
+        overflow-x: hidden;
+    }
+
+    .card-title {
+        overflow: auto;
+        white-space: nowrap;
+    }
+
+    .row {
+        flex-wrap: nowrap;
+    }
+</style>
+<!--Load the AJAX API-->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<div class="px-4">
+    <div class="row">
+        <div class="col card" style="margin-right:0">
+            <div class="card-body row">
+                <i class="fa-solid fa-users display-6 col-auto border border-warning rounded py-2"></i>
+                <div class="col">
+                    <div class="card-title"> الموظفيين</div>
+                    <p class="card-text" id="Candidate"></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col card ">
+            <div class="card-body row">
+                <i class="display-6 col-auto border border-warning rounded py-2 fa-solid fa-book-open"></i>
+                <div class="col">
+
+                    <div class="card-title"> الدورات</div>
+                    <p class="card-text" id="Courses"></p>
+                </div>
+            </div>
+        </div>
+        <div class="col card ">
+            <div class="card-body row">
+                <i class="display-6 col-auto border border-warning rounded py-2 fa-solid fa-award"></i>
+                <div class="col">
+
+                    <div class="card-title"> الشهادات</div>
+                    <p class="card-text" id="Cert"></p>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col card ">
+            <div class="card-body row">
+                <i class="display-6 col-auto border border-warning rounded py-2 fa-solid fa-landmark-flag"></i>
+                <div class="col">
+
+                    <div class="card-title"> الوزارات</div>
+                    <p class="card-text" id="Ministries"></p>
+                </div>
+            </div>
+        </div>
+        <div class="col card ">
+            <div class="card-body row">
+                <i class="display-6 col-auto border border-warning rounded py-2 fa-solid fa-building-columns"></i>
+                <div class="col">
+
+                    <div class="card-title"> الجهات التابعة</div>
+                    <p class="card-text" id="submin"></p>
+                </div>
+            </div>
+        </div>
+        <div class="col card ">
+            <div class="card-body row">
+                <i class="display-6 col-auto border border-warning rounded py-2 fa-solid fa-clipboard-list"></i>
+                <div class="col">
+
+                    <div class="card-title"> البرامج</div>
+                    <p class="card-text" id="program"></p>
+                </div>
+            </div>
+        </div>
+        <div class="col card ">
+            <div class="card-body row">
+                <i class="display-6 col-auto border border-warning rounded py-2 fa-solid fa-school"></i>
+                <div class="col">
+                    <div class="card-title"> المراكز التدريبية</div>
+                    <p class="card-text" id="CourseProvider"></p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+        <!--Div that will hold the pie chart-->
+        <div class="col">
+            <div id="CAN_Mechanism_piechart_3d" style="height: 250px;"></div>
+        </div>
+        <div class="col">
+            <div id="Cand_Program_piechart_3d" style="height: 250px;"></div>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col">
+            <div id="CAND_CourseProvider_barchart" style="height: 400px;"></div>
+        </div>
+
+        <div class="col">
+            <div id="Course_CourseProvider_barchart" style="height: 400px;"></div>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col">
+            <div id="Cand_Course_barchart" style="height: 400px;"></div>
+        </div>
+        <div class="col">
+            <div id="CAND_FiscalYear_linechart_3d" style="height: 400px;"></div>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col">
+            <div id="MIN_SUBMIN_CAN_Stacked_Column_chart_div" style=" width:100%;height: 450px;"></div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script>
+        ////Load Data in Table when documents is ready
+        $(document).ready(function () {
+            loadData();
+            google.charts.load('current', { 'packages': ['corechart'] });
+            google.charts.setOnLoadCallback(DrawCharts);
+        });
+        //Load Data function
+        function loadData() {
+            $.ajax({
+                url: '@Url.Action("Count", "Ministries")',//"/Ministries/Count",
+                type: "GET",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    $('#Ministries').text(result);
+                }
+            });
+            $.ajax({
+                url: '@Url.Action("Count", "TrainingProgram")',//"/TrainingProgram/Count",
+                type: "GET",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    $('#program').text(result);
+                }
+            });
+            $.ajax({
+                url: '@Url.Action("Count", "CourseProvider")',//"/CourseProvider/Count",
+                type: "GET",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    $('#CourseProvider').text(result);
+                }
+            });
+            $.ajax({
+                url: '@Url.Action("CandsCount", "Dashboard")',//"/Dashboard/CandsCount",
+                type: "GET",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    $('#Candidate').text(result);
+                }
+            });
+            $.ajax({
+                url: '@Url.Action("TrainingCoursesCount", "Dashboard")',//"/Dashboard/TrainingCoursesCount",
+                type: "GET",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    $('#Courses').text(result);
+                }
+            });
+            $.ajax({
+                url: '@Url.Action("CertCount", "Dashboard")',//"/Dashboard/CertCount",
+                type: "GET",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    $('#Cert').text(result);
+                }
+            });
+            $.ajax({
+                url: '@Url.Action("SubMinistryCount", "Dashboard")',//"/Dashboard/CertCount",
+                type: "GET",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    $('#submin').text(result);
+                }
+            });
+        }
+
+
+        function DrawCharts() {
+            $.ajax({
+                url: '@Url.Action("GetTheme", "Setting")',
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    var cuurent_theme = result;
+                    var BackgroundColor;
+                    var FontColor;
+                    if (cuurent_theme == "Dark1") {
+                        BackgroundColor = '#292929';
+                        FontColor = 'white';
+                    }
+                    else if (cuurent_theme == "Dark2") {
+                        BackgroundColor = '#2c305c';
+                        FontColor = 'white';
+                    }
+
+                    // Cand Num Per Min & Sub Min
+                    $.ajax({
+                        url: '@Url.Action("CandNumPerMinistry_SubMinistry", "Dashboard")',//"/Dashboard/CertCount",
+                        type: "GET",
+                        contentType: "application/json;charset=utf-8",
+                        dataType: "json",
+                        success: function (result) {
+                            var list = [];
+                            var Ministries = [];
+                            var SubMinistries = [];
+                            var count = 0;
+                            SubMinistries.push('');
+                            for (var i in result) {
+                                SubMinistries.push(result[i]['SubMinistryName']);
+                            }
+                            SubMinistries.push({ role: 'annotation' });
+                            var temp = [];
+                            for (var i in result) {
+                                if (!(Ministries.includes(result[i]['MinistryName']))) {
+                                    if (temp.length != 0) {
+                                        var r = (SubMinistries.length - temp.length)-1;
+                                        for (var j = 0; j < r; j++) temp.push(0);
+                                        }
+                                        temp.push('');
+                                        list.push(temp);
+                                    if (Ministries.length == 0) {
+                                        list.pop()
+                                    }
+                                    var temp = [];
+                                    Ministries.push(result[i]['MinistryName']);
+                                    temp.push(result[i]['MinistryName']);
+                                    for (var j = 0; j < count; j++) temp.push(0);
+                                    temp.push(result[i]['CandNum']);
+                                }
+                                else {
+                                    temp.push(result[i]['CandNum']);
+                                }
+                                count++;
+                            }
+                            if (temp.length != 0) {
+                                temp.push('');
+                                list.push(temp);
+                            }
+                            var data = google.visualization.arrayToDataTable([SubMinistries, ...list]);
+                            @*data.sort([{ column: 0, desc: true }]);*@
+                            var options = {
+                                @*width: 600,*@
+                                @*height: 400,*@
+                                @*legend: { position: 'top', maxLines: 2 },*@
+                                title: 'عدد الموظفين لكل وزارة / جهة تابعة',
+                                chartArea: { top:50,bottom: 120, right: 0, left: 50, 'width': '100%' },
+                                bar: { groupWidth: '80%' },
+                                @*'hAxis': { 'textStyle': { 'fontSize': 11 } },*@
+                                backgroundColor: BackgroundColor,
+                                titleTextStyle: {
+                                    color: FontColor
+                                },
+                                hAxis: {
+                                    direction: "-1",  // Reverse order of x axis to make it from Left to Right
+                                    textStyle: {
+                                        color: FontColor,
+                                        fontSize: 11
+                                    },
+                                    titleTextStyle: {
+                                        color: FontColor
+                                    }
+                                },
+                                vAxis: {
+                                    textStyle: {
+                                        color: FontColor
+                                    },
+                                    titleTextStyle: {
+                                        color: FontColor
+                                    }
+                                },
+                                legend: {
+                                    position: 'top', maxLines: 2,
+                                    textStyle: {
+                                        color: FontColor
+                                    }
+                                },
+                                isStacked: true,
+                            };
+
+                            // Instantiate and draw our chart, passing in some options.
+                            var chart = new google.visualization.ColumnChart(document.getElementById('MIN_SUBMIN_CAN_Stacked_Column_chart_div'));
+                            chart.draw(data, options);
+                        }
+                    });
+
+                    // Cand Num Per Mechanism
+                    $.ajax({
+                        url: '@Url.Action("CandNumPerMechanism", "Dashboard")',//"/Dashboard/CertCount",
+                        type: "GET",
+                        contentType: "application/json;charset=utf-8",
+                        dataType: "json",
+                        success: function (result) {
+                            var list = [];
+                            list.push(['نوع التدريب','عدد المتدريبين'])
+                            for (var i in result) {
+                                list.push([result[i]['StudyMechanismName'], result[i]['Count']]);
+                            }
+                            var data = google.visualization.arrayToDataTable(list);
+                            var options = {
+                                title: 'عدد المتدريبين لكل موقف تنفيذي',
+                                backgroundColor: BackgroundColor,
+                                is3D: true,
+                                titleTextStyle: {
+                                    color: FontColor
+                                },
+                                hAxis: {
+                                    textStyle: {
+                                        color: FontColor
+                                    },
+                                    titleTextStyle: {
+                                        color: FontColor
+                                    }
+                                },
+                                vAxis: {
+                                    textStyle: {
+                                        color: FontColor
+                                    },
+                                    titleTextStyle: {
+                                        color: FontColor
+                                    }
+                                },
+                                legend: {
+                                    textStyle: {
+                                        color: FontColor
+                                    }
+                                }
+                            };
+                            var chart = new google.visualization.PieChart(document.getElementById('CAN_Mechanism_piechart_3d'));
+                            chart.draw(data, options);
+                        }
+                    });
+
+                    // Cand Num Per Program
+                    $.ajax({
+                        url: '@Url.Action("CandNumPerProgram", "Dashboard")',//"/Dashboard/CertCount",
+                        type: "GET",
+                        contentType: "application/json;charset=utf-8",
+                        dataType: "json",
+                        success: function (result) {
+                            var list = [];
+                            list.push(['البرنامج','عدد المتدريبين'])
+                            for (var i in result) {
+                                list.push([result[i]['TrainingProgramName'], result[i]['SUM']]);
+                            }
+                            var data = google.visualization.arrayToDataTable(list);
+                            var options = {
+                                title: 'عدد المتدريبين لكل برنامج',
+                                backgroundColor: BackgroundColor,
+                                is3D: true,
+                                titleTextStyle: {
+                                    color: FontColor
+                                },
+                                hAxis: {
+                                    textStyle: {
+                                        color: FontColor
+                                    },
+                                    titleTextStyle: {
+                                        color: FontColor
+                                    }
+                                },
+                                vAxis: {
+                                    textStyle: {
+                                        color: FontColor
+                                    },
+                                    titleTextStyle: {
+                                        color: FontColor
+                                    }
+                                },
+                                legend: {
+                                    textStyle: {
+                                        color: FontColor
+                                    }
+                                }
+                            };
+                            var chart = new google.visualization.PieChart(document.getElementById('Cand_Program_piechart_3d'));
+                            chart.draw(data, options);
+                        }
+                    });
+
+                    // Cand Num Per Fiscal Year
+                    $.ajax({
+                        url: '@Url.Action("CandPerFiscalYear", "Dashboard")',//"/Dashboard/CertCount",
+                        type: "GET",
+                        contentType: "application/json;charset=utf-8",
+                        dataType: "json",
+                        success: function (result) {
+                            var list = [];
+                            list.push(['عام مالى','عدد المتدريبين'])
+                            for (var i in result) {
+                                list.push([result[i]['FiscalYear'], result[i]['Count']]);
+                            }
+                            var data = google.visualization.arrayToDataTable(list);
+                            var options = {
+                                title: 'عدد المتدريبين لكل عام مالى',
+                                backgroundColor: BackgroundColor,
+                                titleTextStyle: {
+                                    color: FontColor
+                                },
+                                hAxis: {
+                                    textStyle: {
+                                        color: FontColor
+                                    },
+                                    titleTextStyle: {
+                                        color: FontColor
+                                    }
+                                },
+                                vAxis: {
+                                    textStyle: {
+                                        color: FontColor
+                                    },
+                                    titleTextStyle: {
+                                        color: FontColor
+                                    }
+                                },
+                                legend: {
+                                    position: 'bottom',
+                                    textStyle: {
+                                        color: FontColor
+                                    }
+                                }
+                            };
+                            var chart = new google.visualization.LineChart(document.getElementById('CAND_FiscalYear_linechart_3d'));
+                            chart.draw(data, options);
+                        }
+                    });
+
+                    // Cand Num Per Provider
+                    $.ajax({
+                        url: '@Url.Action("CanNumPerProvider", "Dashboard")',//"/Dashboard/CertCount",
+                        type: "GET",
+                        contentType: "application/json;charset=utf-8",
+                        dataType: "json",
+                        success: function (result) {
+                            var list = [];
+                            list.push(['المركز التدريبى','عدد المتدريبين'])
+                            for (var i in result) {
+                                list.push([result[i]['CourseProviderName'], result[i]['Count']]);
+                            }
+                            var data = google.visualization.arrayToDataTable(list);
+                            data.sort([{ column: 1, desc: true }]);
+                            var options = {
+                                title: 'عدد المتدريبين لكل مركز تدريبى',
+                                
+                                backgroundColor: BackgroundColor,
+                                titleTextStyle: {
+                                    color: FontColor
+                                },
+                                hAxis: {
+                                    textStyle: {
+                                        color: FontColor
+                                    },
+                                    titleTextStyle: {
+                                        color: FontColor
+                                    }
+                                },
+                                vAxis: {
+                                    textStyle: {
+                                        color: FontColor
+                                    },
+                                    titleTextStyle: {
+                                        color: FontColor
+                                    }
+                                },
+                                legend: {
+                                    position: 'bottom' ,
+                                    textStyle: {
+                                        color: FontColor
+                                    }
+                                }
+                            };
+                            var chart = new google.visualization.BarChart(document.getElementById('CAND_CourseProvider_barchart'));
+                            chart.draw(data, options);
+                        }
+                    });
+
+                    // Course Num Per Provider
+                    $.ajax({
+                        url: '@Url.Action("CourseNumPerProvider", "Dashboard")',//"/Dashboard/CertCount",
+                        type: "GET",
+                        contentType: "application/json;charset=utf-8",
+                        dataType: "json",
+                        success: function (result) {
+                            var list = [];
+                            list.push(['المركز التدريبى','عدد الدورات'])
+                            for (var i in result) {
+                                list.push([result[i]['CourseProviderName'], result[i]['Count']]);
+                            }
+                            var data = google.visualization.arrayToDataTable(list);
+                            data.sort([{ column: 1, desc: true }]);
+                            var options = {
+                                title: 'عدد الدورات لكل مركز تدريبى',
+                                backgroundColor: BackgroundColor,
+                                titleTextStyle: {
+                                    color: FontColor
+                                },
+                                hAxis: {
+                                    textStyle: {
+                                        color: FontColor
+                                    },
+                                    titleTextStyle: {
+                                        color: FontColor
+                                    }
+                                },
+                                vAxis: {
+                                    textStyle: {
+                                        color: FontColor
+                                    },
+                                    titleTextStyle: {
+                                        color: FontColor
+                                    }
+                                },
+                                legend: {
+                                    position: 'bottom',
+                                    textStyle: {
+                                        color: FontColor
+                                    }
+                                }
+                            };
+                            var chart = new google.visualization.BarChart(document.getElementById('Course_CourseProvider_barchart'));
+                            chart.draw(data, options);
+                        }
+                    });
+
+                    // Cand Num Per Course
+                    $.ajax({
+                        url: '@Url.Action("CandNumPerCourse", "Dashboard")',//"/Dashboard/CertCount",
+                        type: "GET",
+                        contentType: "application/json;charset=utf-8",
+                        dataType: "json",
+                        success: function (result) {
+                            var list = [];
+                            list.push(['الدورة','عدد المتدريبين'])
+                            for (var i in result) {
+                                list.push([result[i]['TrainingCourseName'], result[i]['Count']]);
+                            }
+                            var data = google.visualization.arrayToDataTable(list);
+                            data.sort([{ column: 1, desc: true }]);
+                            var options = {
+                                title: 'عدد المتدريبين لكل دورة',
+                                backgroundColor: BackgroundColor,
+                                titleTextStyle: {
+                                    color: FontColor
+                                },
+                                hAxis: {
+                                    textStyle: {
+                                        color: FontColor
+                                    },
+                                    titleTextStyle: {
+                                        color: FontColor
+                                    }
+                                },
+                                vAxis: {
+                                    textStyle: {
+                                        color: FontColor
+                                    },
+                                    titleTextStyle: {
+                                        color: FontColor
+                                    }
+                                },
+                                legend: {
+                                    position: 'bottom',
+                                    textStyle: {
+                                        color: FontColor
+                                    }
+                                }
+                            };
+                            var chart = new google.visualization.BarChart(document.getElementById('Cand_Course_barchart'));
+                            chart.draw(data, options);
+                        }
+                    });
+                }
+            });
+            }
+    </script>
+}
+

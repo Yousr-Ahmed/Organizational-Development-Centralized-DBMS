@@ -1,0 +1,291 @@
+﻿@using System.Data;
+@model MCITTrainingAPP.Models.ViewModels.UploadModel
+
+
+@using (Html.BeginForm("index", "Upload", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="container-fluid">
+        <div class="fade-in">
+            <div class="row justify-content-center">
+                <div class="col-md-6 align-self-center">
+                    <div class="card my-4 p-4">
+                        <div class="text-center"><h3><strong>إضافة متدربين</strong></h3></div>
+                        <div class="card-body">
+                            <div class="col">
+                                <div class="row"><label class="">ملف المتدربيين</label></div>
+                                <div class="row">
+                                    <div class="form-group col">
+                                        @*@Html.LabelFor(m => m.Uploadedfile, new { @class = "" })*@
+                                        <div class="col">
+                                            @Html.TextBoxFor(m => m.Uploadedfile, new { @class = "form-control", type = "file" })
+                                            @Html.ValidationMessageFor(x => x.Uploadedfile, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="form-group col-sm-3 CandCapitalStatusDiv">
+                                        @Html.LabelFor(model => model.CandCapitalStatus, htmlAttributes: new { @class = "control-label" })
+                                        <div class="col-md-9">
+                                            @*<div class="form-check">*@
+                                            @Html.LabelFor(x => x.CandCapitalStatus, "نعم")
+                                            @Html.RadioButtonFor(x => x.CandCapitalStatus, true, new { @id = "CandCapitalStatusYes", name = "CandCapitalStatusYes" })
+                                            @*</div>
+                                                <div class="form-check">*@
+                                            @Html.LabelFor(x => x.CandCapitalStatus, "لا")
+                                            @Html.RadioButtonFor(x => x.CandCapitalStatus, false, new { @id = "CandCapitalStatusNo", name = "CandCapitalStatusNo" })
+                                            @*</div>*@
+                                        </div>
+                                        <p>
+                                            <span id="CandCapitalStatusErrorMsg" class="text-danger field-validation-error" data-valmsg-replace="true"><span id="Uploadedfile-error" class="">برجاء إختيار حالة الطالب.</span></span>
+                                        </p>
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+
+                            @if (ViewData.ModelState.Keys.Any(k => ViewData.ModelState[k].Errors.Any()))
+                            {
+                                <div id="errorAlert" runat="server" class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong>@Html.ValidationSummary()</strong>
+                                    <button class="close" type="button" data-bs-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                </div>
+                            }
+                          
+                            <div class="=justify-content-center">
+                                <div class="text-center">
+                                    <button id="subBtn" class="btn btn-outline-primary" type="submit">
+                                        <b><i class="c-icon cil-playlist-add"></i> &nbsp; أضف </b>
+                                    </button>
+                                    <button class="btn btn-outline-danger" type="reset">
+                                        <b><i class="c-icon cil-x-circle"></i> &nbsp; مسح </b>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                @if (Model.UploadedfileData != null)
+                {
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                @if (Model.AddedCandidatesList != null && Model.AddedCandidatesList.Any())
+                                {
+                                    <div class="card-header"><h4>تم إضافه المتدربيين(@Model.AddedCandidatesList.Count)</h4></div>
+                                    <div class="card-body">
+                                        <div class="col-md-12">
+                                            <table class="table  table-hover ">
+                                                <thead class="thead-light">
+                                                    <tr>
+                                                        <th class="text-center">
+                                                            رقم القومي
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var item in Model.AddedCandidatesList)
+                                                    {
+                                                        <tr>
+                                                            <td class="text-center">
+                                                                <div class="c-avatar"><span class="c-avatar-status bg-success"></span></div>
+                                                                @item
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                }
+                                @if (Model.AlreadyAddedCandidatesList != null && Model.AlreadyAddedCandidatesList.Any())
+                                {
+                                    <div class="card-header"><h4>تم إضافتهم من قبل(@Model.AlreadyAddedCandidatesList.Count)</h4></div>
+                                    <div class="card-body">
+                                        <div class="col-md-12">
+                                            <table class="table table-hover">
+                                                <thead class="thead-light">
+                                                    <tr>
+                                                        <th class="text-center">
+                                                            مسلسل
+                                                        </th>
+                                                        <th class="text-center">
+                                                            رقم القومي
+                                                        </th>
+                                                        <th class="text-center">
+                                                            الإسم
+                                                        </th> 
+                                                        <th class="text-center">
+                                                            ملاحظات
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var item in Model.AlreadyAddedCandidatesList)
+                                                    {
+                                                        <tr>
+                                                            <td class="text-center">
+                                                                <div class="c-avatar"><span class="c-avatar-status bg-danger"></span></div>
+
+                                                                @item.CandSerial
+                                                            </td>
+                                                            <td class="text-center">
+                                                                @item.CandNationalID
+                                                            </td>
+                                                            <td class="text-center">
+                                                                @item.CandFullName
+                                                            </td> 
+                                                            <td class="text-center">
+                                                                @item.Notes
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                }
+                                @if (Model.ExcelInvalidWithReasonsList != null && Model.ExcelInvalidWithReasonsList.Any())
+                                {
+                                    <div class="card-header"><h4>لم يتم إضافه المتدربيين(@Model.ExcelInvalidWithReasonsList.Count)</h4></div>
+                                    <div class="card-body">
+                                        <div class="col-md-12">
+                                            <table class="table   table-hover ">
+                                                <thead class="thead-light">
+                                                    <tr>
+                                                        <th class="text-center">
+                                                            مسلسل
+                                                        </th>
+                                                        <th class="text-center">
+                                                            رقم القومي
+                                                        </th>
+                                                        <th class="text-center">
+                                                            الإسم
+                                                        </th> 
+                                                        <th class="text-center">
+                                                            السبب
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var item in Model.ExcelInvalidWithReasonsList)
+                                                    {
+                                                        <tr>
+                                                            <td class="text-center">
+                                                                <div class="c-avatar"><span class="c-avatar-status bg-danger"></span></div>
+
+                                                                @item.CandSerial
+                                                            </td>
+                                                            <td class="text-center">
+                                                                @item.CandNationalID
+                                                            </td>
+                                                            <td class="text-center">
+                                                                @item.CandFullName
+                                                            </td> 
+                                                            <td class="text-center">
+                                                                @item.Reason
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                }
+
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+
+
+        $(document).ready(function () {
+            $('table').DataTable({
+                //"order": [[0, 'desc']],
+                "aLengthMenu": [
+                    [5, 10, 25, -1],
+                    [5, 10, 25, "All"]
+                ],
+                "iDisplayLength": 5,
+
+                "language": {
+                    "sProcessing": "جارٍ التحميل...",
+                    "sLengthMenu": "أظهر _MENU_ سجلات",
+                    "sZeroRecords": "لم يعثر على أية سجلات",
+                    "sInfo": "إظهار _START_ إلى _END_ من أصل _TOTAL_ سجل",
+                    "sInfoEmpty": "يعرض 0 إلى 0 من أصل 0 سجل",
+                    "sInfoFiltered": "(منتقاة من مجموع _MAX_ سجل)",
+                    "sInfoPostFix": "",
+                    "sSearch": "ابحث:",
+                    "sUrl": "",
+                    "oPaginate": {
+                        "sFirst": "الأول",
+                        "sPrevious": "السابق",
+                        "sNext": "التالي",
+                        "sLast": "الأخير"
+                    }
+                }
+
+
+            });
+
+
+            $("#CandCapitalStatusErrorMsg").hide();
+
+            $("#ddlCandTypes").change(function () {
+                $('#CandCapitalStatusYes').prop('checked', false);
+                $('#CandCapitalStatusNo').prop('checked', false);
+
+                if ($(this).val() == "1") {
+                    $(".CandCapitalStatusDiv").show();
+                }
+                else {
+                    $(".CandCapitalStatusDiv").hide();
+                    $("#CandCapitalStatusErrorMsg").hide();
+                }
+            });
+
+
+            $("#subBtn").on("click", function () {
+
+                if ($("#ddlCandTypes").val() == "1") {
+                    if ($("#CandCapitalStatusYes").is(":unchecked") && $("#CandCapitalStatusNo").is(":unchecked")) {
+                        $("#CandCapitalStatusErrorMsg").show();
+                        return false;
+                    }
+                    else {
+                        $("#CandCapitalStatusErrorMsg").hide();
+                    }
+                }
+            });
+
+        });
+
+
+
+    </script>
+}

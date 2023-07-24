@@ -1,0 +1,734 @@
+﻿<style>
+    .hide_element {
+        display: none;
+        visibility: hidden;
+    }
+
+    .formError {
+        z-index: 990;
+        left: 0 !important;
+        direction: ltr;
+    }
+
+    .has-error {
+        border: 1px solid rgb(185, 74, 72) !important;
+    }
+
+</style>
+<div class="container-fluid">
+    <div class="fade-in">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header"><h3 class="text-center"><strong>الوزارات</strong></h3></div>
+                    <div class="card-body">
+                        <div class="col-md-12">
+                            @if (User.IsInRole("Administrator"))
+                            {
+                                <button type="button" class="btn btn-default btn_main" data-bs-toggle="modal" data-bs-target="#myModal" onclick="clearTextBox();">إضافة وزارة</button><br /><br />
+                            }
+
+                            <table id="Min" class="jDataTable table table-striped dt-responsive  table-hover" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th class="hide_element">
+                                            ID
+                                        </th>
+                                        <th>
+                                            الوزارات
+                                        </th>
+                                        <th>عدد المنتقلين للعاصمة الإدارية</th> 
+                                        <th>
+                                            الجهات التابعة
+                                        </th>
+                                        <th>
+                                            التحكم
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="tbody">
+                                </tbody>
+                            </table>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </div>
+</div>
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">إضافة وزارة</h4>
+                <button type="button" class="close" data-bs-dismiss="modal">×</button>
+            </div>
+            <div class="modal-body">
+                <form id="MinistryAddForm">
+                    <div class="form-group hide_element">
+                        <input type="hidden" id="MinistryID" name="MinistryID" />
+                        @Html.Hidden("hdfMinistryID")
+                        <label for="MinistryID">ID</label>
+                        <input type="text" class="form-control" id="MinistryID" name="MinistryID" placeholder="MinistryID" />
+                    </div>
+                    <div class="form-group">
+                        <label for="MinistryName">الوزارة</label>
+                        <input type="text" class="form-control validate[required]" id="MinistryName" name="MinistryName" placeholder="الوزارة" maxlength="100" />
+                    </div>
+                    <div class="form-group">
+                        <label for="MinistryName">عدد المنتقلين للعاصمة الإدارية</label>
+                        <input type="text" class="form-control validate[required]" id="MinistryQuote" name="MinistryQuote" placeholder="عدد المنتقلين للعاصمة الإدارية" maxlength="5" />
+                    </div>
+                  
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btnAdd" onclick="return Add();">إضافة</button>
+                <button type="button" class="btn btn-outline-warning" id="btnUpdate" style="display:none;" onclick="Update();">تعديل</button>
+                <button type="button" class="btn btn-default" data-bs-dismiss="modal">إغلاق</button>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="modal fade" id="SubMinistriesModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">الجهات التابعة</h4>
+                <button type="button" class="close" data-bs-dismiss="modal">×</button>
+            </div>
+            <div class="modal-body"> 
+                @*@if (User.IsInRole("Administrator"))
+                {*@
+                    <button type="button" class="btn btn-default btn_main" data-bs-toggle="modal" data-bs-target="#AddSubMinistryModal" onclick="clearSubMinistriesTextBox();"  >إضافة  جهة تابعة</button><br /><br />
+                @*}*@
+                <div class="hide_element">
+                    @Html.Hidden("MinistryIDForAdd")
+                </div>
+                @*@Html.TextBox("MinistryIDForAdd")*@
+
+                <table id="Tbl_SubMinistries" class="jDataTable table table-striped dt-responsive" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th class="hide_element">
+                                ID
+                            </th>
+                            <th>
+                                الجهة التابعة
+                            </th>
+                            <th>
+                                التحكم
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="tbody">
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-bs-dismiss="modal">إغلاق</button>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+<div class="modal fade" id="AddSubMinistryModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">إضافة جهة تابعة</h4>
+                <button type="button" class="close" data-bs-dismiss="modal">×</button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="hide_element">
+                        @Html.Hidden("SubMinistryIDForUpdate")
+                    </div>
+                    <div class="form-group">
+                        <label for="SubMinistryName">الجهة التابعة</label>
+                        <input type="text" class="form-control" id="SubMinistryName" name="SubMinistryName" placeholder="البرنامج" maxlength="100" />
+                    </div> 
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btnAddSubMinistry" onclick="return AddSubMinistry();">إضافة</button>
+                <button type="button" class="btn btn-primary" id="btnUpdateSubMinistry" style="display:none;" onclick="UpdateSubMinistry();">تعديل</button>
+                <button type="button" class="btn btn-default" data-bs-dismiss="modal">إغلاق</button>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+@section Scripts {
+    @*@Scripts.Render("~/bundles/jqueryval")*@
+<script type="text/javascript">
+
+        ////Load Data in Table when documents is ready
+        $(document).ready(function () {
+            loadData(); 
+        }); 
+       
+        //Load Data function
+        function loadData() {
+            $.ajax({
+                url: '@Url.Action("List", "Ministries")',//"/TrainingProgram/List",
+                type: "GET",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    var table = $('#Min').DataTable();
+                    table.destroy();
+                    var table = $('#Min').DataTable({
+                        "order": [[0, 'desc']],
+                        "data": data,
+                        "columnDefs": [
+                            {
+                                "targets": [0],
+                                "visible": false,
+                                "searchable": false
+                            },
+                            {
+                                    "targets": [4], //fifth column
+                                    "visible": @(User.IsInRole("Administrator") ? "true" : "false"),
+                            }
+],
+
+                        "columns": [
+                            { "data": "MinistryID" },
+                            { "data": "MinistryName" },
+                            { "data": "MinistryQuote" }, 
+                            {
+                                "mRender": function (data, type, row) {
+                                    return '<a href="#"  class="btn btn-outline-primary" onclick="GetSubMinistriesByMinistryID(' + row.MinistryID + ');return false;">الجهات التابعة</a></td>';
+                                }
+                            },
+                            {
+                                "mRender": function (data, type, row) {
+                                    return '<a href="#"  class="btn btn-outline-warning" onclick="return getbyID(' + row.MinistryID + ')">تعديل</a>  <a href="#"  class="btn btn-outline-danger" onclick="Delele(' + row.MinistryID + ');return false;">حذف</a></td>';
+                                }
+                            }
+                        ],
+
+                        "aLengthMenu": [
+                            [5, 10, 25, -1],
+                            [5, 10, 25, "All"]
+                        ],
+                        "iDisplayLength": 5,
+
+                        "language": {
+                            "sProcessing": "جارٍ التحميل...",
+                            "sLengthMenu": "أظهر _MENU_ سجلات",
+                            "sZeroRecords": "لم يعثر على أية سجلات",
+                            "sInfo": "إظهار _START_ إلى _END_ من أصل _TOTAL_ سجل",
+                            "sInfoEmpty": "يعرض 0 إلى 0 من أصل 0 سجل",
+                            "sInfoFiltered": "(منتقاة من مجموع _MAX_ سجل)",
+                            "sInfoPostFix": "",
+                            "sSearch": "ابحث:",
+                            "sUrl": "",
+                            "oPaginate": {
+                                "sFirst": "الأول",
+                                "sPrevious": "السابق",
+                                "sNext": "التالي",
+                                "sLast": "الأخير"
+                            }
+                        }
+
+
+                    });
+
+
+
+
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status);
+                    alert(thrownError);
+                }
+            });
+        }
+
+
+
+
+        //Add Data Function
+        function Add() { 
+            if ($("#MinistryAddForm").validationEngine('validate')) {
+                 
+            var MinistryModel = {};
+            MinistryModel.MinistryName = $("#MinistryName").val();
+            MinistryModel.MinistryQuote = $("#MinistryQuote").val();  
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("Add", "Ministries")',//"/TrainingProjects/TrainingProgram/Add",
+                data: '{MinistryModel: ' + JSON.stringify(MinistryModel) + '}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    if (result == false) {
+                        ShowErrMess("برجاء المحاولة مرة أخري");
+                    }
+                    else {
+                        ShowSuccessMess("تمت الإضافة بنجاح");
+                    }
+                    loadData();
+                    $('#myModal').modal('hide');
+                    //$("#myModal").modal({ backdrop: false }); //Not Working
+                    $('body').removeClass('modal-open');
+                    $('.modal-backdrop').remove();
+
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status);
+                    alert(thrownError);
+                }
+            });
+            }
+        }
+
+
+
+
+
+        //Function for getting the Data Based upon Employee ID
+        function getbyID(MinistryID) {
+
+               $('#MinistryName').css('border-color', 'lightgrey');
+               $('#MinistryQuote').css('border-color', 'lightgrey');
+            $.ajax({
+                url: '@Url.Action("GetbyID", "Ministries")',//"/TrainingProjects/TrainingProgram/GetbyID/" + TrainingProgramID,
+                data: { 'ID': MinistryID },
+                typr: "GET",
+                contentType: "application/json;charset=UTF-8",
+                dataType: "json",
+                success: function (result) {
+                    $('#MinistryID').val(result.MinistryID);
+                    $('#MinistryName').val(result.MinistryName);
+                    $('#MinistryQuote').val(result.MinistryQuote);
+                      
+                    $('#myModal').modal('show');
+                    $('#btnUpdate').show();
+                    $('#btnAdd').hide();
+
+
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+            return false;
+        }
+
+        //function for updating employee's record
+        function Update() {
+            var res = validate();
+            if (res == false) {
+                return false;
+            }
+             
+            var MinistryModel = {};
+            MinistryModel.MinistryID = $("#MinistryID").val();
+            MinistryModel.MinistryName = $("#MinistryName").val();
+            MinistryModel.MinistryQuote = $("#MinistryQuote").val();
+             
+            $.ajax({
+                url: '@Url.Action("Update", "Ministries")',//"/TrainingProjects/TrainingProgram/Update",
+                data: '{MinistryModel: ' + JSON.stringify(MinistryModel) + '}',
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    if (result == false) {
+                        ShowErrMess("برجاء المحاولة مرة أخري");
+                    }
+                    else {
+                        ShowSuccessMess("تم التعديل بنجاح");
+                    }
+                    loadData();
+                    $('#myModal').modal('hide');
+                    $('#MinistryID').val("");
+                    $('#MinistryName').val("");
+                    $('#MinistryQuote').val("");
+
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status);
+                    alert(thrownError);
+                }
+            });
+        }
+
+
+
+        //function for deleting employee's record
+        function Delele(ID) {
+            var ans = confirm("هل تريد تأكيد الحذف؟");
+            if (ans) {
+                $.ajax({
+                    url: '@Url.Action("Delete", "Ministries")',//"/TrainingProjects/TrainingProgram/Delete/" + ID,
+                    data: { 'ID': ID },
+                    type: "GET",
+                    contentType: "application/json;charset=UTF-8",
+                    dataType: "json",
+                    success: function (result) {
+                        if (result == false) {
+                            ShowErrMess("لا يمكنك الحذف(هناك بيانات مرتبطة بهذا السجل)");
+                        }
+                        else {
+                            ShowSuccessMess("تم الحذف بنجاح");
+                        }
+                        loadData();
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status);
+                        alert(thrownError);
+                    }
+                });
+            }
+
+        }
+
+
+        function clearTextBox() {
+            $('#MinistryID').val("");
+            $('#MinistryName').val("");
+            $('#MinistryQuote').val("");
+            $('#btnUpdate').hide();
+            $('#btnAdd').show();
+            $('#MinistryName').css('border-color', 'lightgrey');
+            $('#MinistryQuote').css('border-color', 'lightgrey');
+        }
+        //Valdidation using jquery
+        function validate() {
+            var isValid = true;
+            if ($('#MinistryName').val().trim() == "") {
+                $('#MinistryName').css('border-color', 'Red');
+                isValid = false;
+            }
+            else {
+                $('#MinistryName').css('border-color', 'lightgrey');
+            }
+            if ($('#MinistryQuote').val().trim() == "") {
+                $('#MinistryQuote').css('border-color', 'Red');
+                isValid = false;
+            }
+            else {
+                $('#MinistryQuote').css('border-color', 'lightgrey');
+            }
+         
+
+            return isValid;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+           //Load Data function
+        function GetSubMinistriesByMinistryID(ID) {
+            $('#SubMinistriesModal').modal('show');
+            $('#MinistryIDForAdd').val(ID);
+
+            //alert($('#MinistryIDForAdd').val());
+
+            $.ajax({
+                url: '@Url.Action("GetSubMinistriesByMinistryID", "Ministries")',//"/TrainingProgram/List",
+                data: { 'ID': ID },
+                type: "GET",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    var table = $('#Tbl_SubMinistries').DataTable();
+                    table.destroy();
+                    var table = $('#Tbl_SubMinistries').DataTable({
+                        "order": [[0, 'desc']],
+                        "data": data,
+                        "columnDefs": [
+                            {
+                                "targets": [0],
+                                "visible": false,
+                                "searchable": false
+                            },
+                            @*{
+                                    "targets": [2], //first column
+                                "visible": @(User.IsInRole("Administrator") ? "true" : "false"), // had syntactical error extra colon was there before question mark.
+                            }*@
+],
+
+                        "columns": [
+                            { "data": "SubMinistryID" },
+                            { "data": "SubMinistryName" },
+                            {
+                                "mRender": function (data, type, row) {
+                                    return '<a href="#"  class="btn btn-outline-warning" onclick="return GetSubMinistryInfoByID(' + row.SubMinistryID + ')">تعديل</a>  <a href="#"  class="btn btn-outline-danger" onclick="DeleteSubMinistry(' + row.SubMinistryID + ');return false;">حذف</a>  </td>';
+                                }
+                            }
+                        ],
+
+                        "aLengthMenu": [
+                            [5, 10, 25, -1],
+                            [5, 10, 25, "All"]
+                        ],
+                        "iDisplayLength": 5,
+
+                        "language": {
+                            "sProcessing": "جارٍ التحميل...",
+                            "sLengthMenu": "أظهر _MENU_ سجلات",
+                            "sZeroRecords": "لم يعثر على أية سجلات",
+                            "sInfo": "إظهار _START_ إلى _END_ من أصل _TOTAL_ سجل",
+                            "sInfoEmpty": "يعرض 0 إلى 0 من أصل 0 سجل",
+                            "sInfoFiltered": "(منتقاة من مجموع _MAX_ سجل)",
+                            "sInfoPostFix": "",
+                            "sSearch": "ابحث:",
+                            "sUrl": "",
+                            "oPaginate": {
+                                "sFirst": "الأول",
+                                "sPrevious": "السابق",
+                                "sNext": "التالي",
+                                "sLast": "الأخير"
+                            }
+                        }
+
+
+                    });
+
+
+
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status);
+                    alert(thrownError);
+                }
+            });
+        }
+
+
+
+
+    //Valdidation using jquery
+    function validateSubMinistries() {
+        var isValid = true;
+        if ($('#SubMinistryName').val().trim() == "") {
+            $('#SubMinistryName').css('border-color', 'Red');
+            isValid = false;
+        }
+        else {
+            $('#SubMinistryName').css('border-color', 'lightgrey');
+        }
+        return isValid;
+    }
+
+
+    function clearSubMinistriesTextBox() {
+            //$('#MinistryIDForAdd').val("");
+            $('#SubMinistryName').val("");
+            $('#btnUpdateSubMinistry').hide();
+            $('#btnAddSubMinistry').show();
+            $('#SubMinistryName').css('border-color', 'lightgrey');
+        }
+
+
+        //Add Data Function
+    function AddSubMinistry() {
+        var res = validateSubMinistries();
+            if (res == false) {
+                return false;
+            }
+        //alert($("#MinistryIDForAdd").val());
+
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("AddSubMinistry", "Ministries")',//"/TrainingProjects/TrainingProgram/Add",
+                data: { //Passing data
+                    SubMinistryName: $("#SubMinistryName").val(), //Reading text box values using Jquery
+                    MinistryID: $("#MinistryIDForAdd").val()
+                },
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    if (result == false) {
+                        ShowErrMess("برجاء المحاولة مرة أخري");
+                    }
+                    else {
+                        ShowSuccessMess("تمت الإضافة بنجاح");
+                    }
+                    GetSubMinistriesByMinistryID($('#MinistryIDForAdd').val());
+                    $('#AddSubMinistryModal').modal('hide');
+                    //$("#myModal").modal({ backdrop: false }); //Not Working
+                    $('body').removeClass('modal-open');
+                    $('.modal-backdrop').remove();
+                    $('#SubMinistryName').val("");
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status);
+                    alert(thrownError);
+                }
+            });
+        }
+
+
+
+
+     //EditLink  //Function for getting the Data Based upon ID For update SubMinistry
+    function GetSubMinistryInfoByID(SubMinistryID) {
+        $('#SubMinistryName').css('border-color', 'lightgrey');
+            $.ajax({
+                url: '@Url.Action("GetSubMinistryInfoByID", "Ministries")',//"/TrainingProjects/TrainingProgram/GetbyID/" + TrainingProgramID,
+                data: { 'ID': SubMinistryID },
+                typr: "GET",
+                contentType: "application/json;charset=UTF-8",
+                dataType: "json",
+                success: function (result) {
+                    $('#SubMinistryIDForUpdate').val(result.SubMinistryID);
+                    $('#SubMinistryName').val(result.SubMinistryName);
+
+                    $('#AddSubMinistryModal').modal('show');
+                    $('#btnUpdateSubMinistry').show();
+                    $('#btnAddSubMinistry').hide();
+
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status);
+                    alert(thrownError);
+                }
+            });
+            return false;
+        }
+
+        //function for updating employee's record
+    function UpdateSubMinistry() {
+        var res = validateSubMinistries();
+            if (res == false) {
+                return false;
+            }
+
+            $.ajax({
+                url: '@Url.Action("UpdateSubMinistry", "Ministries")',//"/TrainingProjects/TrainingProgram/Update",
+                data: { //Passing data
+                     SubMinistryName: $("#SubMinistryName").val(), //Reading text box values using Jquery
+                    SubMinistryID: $("#SubMinistryIDForUpdate").val()
+                },
+                type: "GET",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    if (result == false) {
+                        ShowErrMess("برجاء المحاولة مرة أخري");
+                    }
+                    else {
+                        ShowSuccessMess("تم التعديل بنجاح");
+                    }
+                    GetSubMinistriesByMinistryID($('#MinistryIDForAdd').val());
+                    $('#AddSubMinistryModal').modal('hide');
+                    $('#SubMinistryIDForUpdate').val("");
+                    $('#SubMinistryName').val("");
+
+                    $('#btnUpdateSubMinistry').hide();
+                    $('#btnAddSubMinistry').show();
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status);
+                    alert(thrownError);
+                }
+            });
+        }
+
+
+
+           //function for deleting employee's record
+    function DeleteSubMinistry(ID) {
+            var ans = confirm("هل تريد تأكيد الحذف؟");
+            if (ans) {
+                $.ajax({
+                    url: '@Url.Action("DeleteSubMinistry", "Ministries")',//"/TrainingProjects/TrainingProgram/Delete/" + ID,
+                    data: { 'ID': ID },
+                    type: "GET",
+                    contentType: "application/json;charset=UTF-8",
+                    dataType: "json",
+                    success: function (result) {
+                        if (result == false) {
+                            ShowErrMess("لا يمكنك الحذف(هناك بيانات مرتبطة بهذا السجل)");
+                        }
+                        else {
+                            ShowSuccessMess("تم الحذف بنجاح");
+                        }
+                        GetSubMinistriesByMinistryID($('#MinistryIDForAdd').val());
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status);
+                        alert(thrownError);
+                    }
+                });
+            }
+
+        }
+
+
+
+
+</script>
+
+
+
+
+}

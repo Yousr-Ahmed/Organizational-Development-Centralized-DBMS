@@ -1,0 +1,110 @@
+﻿@model MCITTrainingAPP.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+}
+<link href='https://fonts.googleapis.com/css?family=Amiri' rel='stylesheet'>
+<style>
+
+@*    body {
+        background-image: url("https://drive.google.com/uc?export=view&id=1C-4hWg3NY68OkO65iIOgTbIJPFx5Ql_Q");
+        background-attachment: fixed;
+        background-size: cover;
+        font-family: "Amiri rev=2"
+    }*@
+
+    .btn {
+        color: #fff;
+        text-transform: uppercase;
+        font-family: sans-serif;
+        box-sizing: border-box;
+        background: linear-gradient(90deg, yellow, orange, red,white, black, yellow);
+        background-size: 400%;
+        border-radius: 30px;
+    }
+
+    .btn:hover {
+        animation: animate 8s linear infinite;
+    }
+
+    @@keyframes animate {
+        0% {
+            background-position: 0%;
+        }
+
+        100% {
+            background-position: 400%;
+        }
+    }
+
+    .btn:before {
+        content: "";
+        background: linear-gradient(45deg, #f15523, #ef3224, #7c3697);
+        background-size: 400%;
+        border-radius: 40px;
+        opacity: 0;
+    }
+
+    .btn:hover:before {
+        filter: blur(20px);
+        opacity: 1;
+        animation: animate 8s linear infinite;
+    }
+</style>
+
+@*<img class="float-end" src="https://drive.google.com/uc?export=view&id=1P0eWxmmq43NlI8rfdXcsgr4Eid1KKXmt" alt="">*@
+
+<div class="container">
+    <br />
+    <br />
+
+    <div class="row align-items-center justify-content-center">
+        <div class="col-md-6 align-self-center rounded border p-4 card">
+            @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <h3 class="text-center"><strong>إنشاء مستخدم جديد</strong></h3>
+                <hr />
+                @Html.ValidationSummary("", new { @class = "text-danger" })
+                @*                <div class="form-group">
+                        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                        </div>
+                    </div>*@
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="Email" name="Email" placeholder="name@example.com">
+                    <label for="Email">البريد الإلكترونى</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="password" class="form-control" id="Password" name="Password" placeholder="Password">
+                    <label for="Password">كلمة المرور</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="password" class="form-control" id="ConfirmPassword" name="ConfirmPassword" placeholder="Password">
+                    <label for="Password">تأكيد كلمة المرور</label>
+                </div>
+                @*              <div class="form-group">
+                        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                        </div>
+                    </div>*@
+                @*<div class="form-group">
+                        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                        </div>
+                    </div>*@
+                <div class="form-group justify-content-center">
+                    <div class="align-self-center">
+                        <div class="text-center"><input type="submit" class="btn btn-default" value="تسجيل" /></div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,127 @@
+﻿@model List<MCITTrainingAPP.Models.EF.TBL_CandidatesInfo>
+<style>
+    .btn {
+        color: #fff;
+        text-transform: uppercase;
+        font-family: sans-serif;
+        box-sizing: border-box;
+        background: linear-gradient(90deg, yellow, orange, red,white, black, yellow);
+        background-size: 400%;
+        border-radius: 30px;
+    }
+
+        .btn:hover {
+            animation: animate 8s linear infinite;
+        }
+
+    @@keyframes animate {
+        0% {
+            background-position: 0%;
+        }
+
+        100% {
+            background-position: 400%;
+        }
+    }
+
+    .btn:before {
+        content: "";
+        background: linear-gradient(45deg, #f15523, #ef3224, #7c3697);
+        background-size: 400%;
+        border-radius: 40px;
+        opacity: 0;
+    }
+
+    .btn:hover:before {
+        filter: blur(20px);
+        opacity: 1;
+        animation: animate 8s linear infinite;
+    }
+</style>
+@using (Html.BeginForm("CandInfoQuery", "Query", FormMethod.Post))
+{
+    <div class="container">
+        <div class="row align-items-center justify-content-center my-4">
+            <div class="col-md-6 align-self-center">
+                <div class="card px-1">
+                    <div class="card-body">
+                        <div class="row jutify-content-center mb-3">
+
+                            <label for="NatID">الرقم القومى</label>
+                            <input type="text" name="NatID" class="form-control col-md-9"/>
+
+
+                        </div>
+                        <div class="row mb-3">
+
+                            <label for="name">الإسم</label>
+                            <input type="text" name="name" class="form-control col-md-9"/>
+
+                        </div>
+                        <div class="row justify-content-center mb-1">
+                            <div class="col align-self-center">
+                                <div class="text-center"><input type="submit" value="بحث" class="btn btn-default" /></div>
+                            </div>
+                            @*<input type="submit" value="Search" class="btn" />*@
+                            
+
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+   
+    
+
+
+}
+@if (Model != null && Model.Count > 0)
+{ 
+    <h3>بيانات المتدرب</h3>
+        <table class="table jDataTable">
+            <thead>
+                <tr>
+                    <th>الإسم بالكامل</th>
+                    <th>الرقم القومى</th>
+                    <th>رقم المحمول</th>
+                    <th>البريد الإلكترونى</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var Emp in Model)
+                {
+                    <tr>
+                        <td>@Emp.CandFullName</td>
+                        <td>@Emp.CandNationalID</td>
+                        <td>@Emp.CandMobileNumber</td>
+                        <td>@Emp.CandEmail</td>
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+     
+    <div style="text-align: center;">
+        <a href="@Url.Action("CandInfoExportToExcel", "Query")"
+           type="submit"
+           id="runReport"
+           class="btn btn-default" style="height:40px">
+            حفظ كملف Excel
+            <img src="https://img.icons8.com/color/30/000000/microsoft-excel-2019--v1.png" class="img-responsive" />
+        </a>
+
+        <a href="@Url.Action("CandReportPDF", "Query")"
+           type="submit"
+           id="runReport"
+           class="btn btn-default" style="height:40px">
+            حفظ كملف pdf
+            <img src="https://img.icons8.com/color/30/000000/pdf-2--v1.png" class="img-responsive" />
+        </a>
+    </div>
+    <br />
+}

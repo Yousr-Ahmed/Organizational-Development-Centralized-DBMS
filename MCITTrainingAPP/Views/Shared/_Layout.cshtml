@@ -1,0 +1,662 @@
+﻿@using Microsoft.AspNet.Identity
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Application</title>
+
+    @*import bootstrap RTL version*@
+    <!-- CSS only -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.rtl.min.css"
+          integrity="sha384-+4j30LffJ4tgIMrq9CwHvn0NjEvmuDCOfk6Rpg2xg7zgOxWWtLtozDEEVvBPgHqE" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+            crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+          integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href='https://fonts.googleapis.com/css?family=Amiri' rel='stylesheet'>
+
+    <!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    @*
+        @Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")
+    *@
+
+    @*Begin Css jQueryDatatbles*@
+    <link href="~/SiteFiles/jQuery plugins/jQueryDatatbles/dataTables.bootstrap4.min.css" rel="stylesheet" />
+    <link href="~/SiteFiles/jQuery plugins/jQueryDatatbles/responsive.bootstrap.min.css" rel="stylesheet" />
+    <link href="~/SiteFiles/jQuery plugins/jQueryDatatbles/all.min.css" rel="stylesheet" />
+    @*End Css jQueryDatatbles*@
+
+    @*Begin Css pickadate*@
+    <link href="~/SiteFiles/jQuery plugins/pickadate.js-3.5.6/lib/themes/default.css" rel="stylesheet" />
+    <link href="~/SiteFiles/jQuery plugins/pickadate.js-3.5.6/lib/themes/default.date.css" rel="stylesheet" />
+    <link href="~/SiteFiles/jQuery plugins/pickadate.js-3.5.6/lib/themes/rtl.css" rel="stylesheet" />
+    @*End Css pickadate*@
+
+    @*Begin Css toastr*@
+    <link href="~/SiteFiles/jQuery plugins/toastr-master/build/toastr.min.css" rel="stylesheet" />
+    @*End Css toastr*@
+
+    @*Begin Css jQuery-Validation-Engine*@
+    <link href="~/SiteFiles/jQuery plugins/jQuery-Validation-Engine-master/css/validationEngine.jquery.css" rel="stylesheet" />
+    @*End Css jQuery-Validation-Engine*@
+
+    @*open dropdown menu on hover for desktop only*@
+    <style>
+        @@media only screen and (min-width: 992px) {
+            .navbar .nav-item .dropdown-menu {
+                display: none;
+            }
+
+            .navbar .nav-item:hover .nav-link {
+            }
+
+            .navbar .nav-item:hover .dropdown-menu {
+                display: block;
+            }
+
+            .navbar .nav-item .dropdown-menu {
+                margin-top: 0;
+            }
+        }
+
+        div.dataTables_wrapper div.dataTables_filter {
+            text-align: left;
+        }
+
+        .navbar-expand-xxl .navbar-nav .nav-link {
+            font-size: large;
+        }
+
+        .btn-default {
+            color: #fff;
+            text-transform: uppercase;
+            font-family: sans-serif;
+            box-sizing: border-box;
+            background: linear-gradient(90deg, yellow, orange, red,white, black, yellow);
+            background-size: 400%;
+            border-radius: 30px;
+        }
+
+            .btn-default:hover {
+                animation: animate 8s linear infinite;
+            }
+
+        @@keyframes animate {
+            0% {
+                background-position: 0%;
+            }
+
+            100% {
+                background-position: 400%;
+            }
+        }
+
+        .btn-default:before {
+            content: "";
+            background: linear-gradient(45deg, #f15523, #ef3224, #7c3697);
+            background-size: 400%;
+            border-radius: 40px;
+            opacity: 0;
+        }
+
+        .btn-default:hover:before {
+            filter: blur(20px);
+            opacity: 1;
+            animation: animate 8s linear infinite;
+        }
+    </style>
+    @{
+        var theme = Context.Request.Cookies["Theme"].Value;
+        if (theme == "Light")
+        {
+            <style>
+                nav {
+                    background-color: #019592;
+                }
+
+                .navbar-expand-xxl .navbar-nav .nav-link {
+                    color: white;
+                }
+
+                body {
+                    background-color: #F5F5F5;
+                }
+
+                .Card {
+                    background-color: white;
+                }
+
+                .form-control {
+                    background-color: #99f5f36e;
+                }
+
+                .fa-solid {
+                    color: black;
+                }
+
+                p {
+                    color: black;
+                }
+
+                .card-title {
+                    color: black;
+                }
+
+                .btn-outline-primary {
+                    --bs-btn-color: #019592;
+                    --bs-btn-border-color: #019592;
+                    --bs-btn-hover-color: #fff;
+                    --bs-btn-hover-bg: #01aaa7ad;
+                    --bs-btn-hover-border-color: #01aaa7ad;
+                    --bs-btn-active-bg: #01aaa7ad;
+                    --bs-btn-active-border-color: #01aaa7ad;
+                }
+
+                .active > .page-link {
+                    color: #fff;
+                    background-color: #32d6d3;
+                    border-color: transparent;
+                }
+
+                .page-link {
+                    color: #019592;
+                }
+
+                span {
+                    color: #019592;
+                }
+            </style>
+        }
+        else if (theme == "Dark1")
+        {
+            <style>
+                nav {
+                    background-color: #1f1f1f;
+                }
+
+                body {
+                    background-color: #000000;
+                }
+
+                .card, .modal-content {
+                    background-color: #292929;
+                    color: white;
+                }
+
+                .border {
+                    border: #292929 !important;
+                }
+
+                .table {
+                    color: white;
+                }
+
+                .form-control {
+                    background-color: #6a6767;
+                    color: white;
+                }
+
+                .dropdown-menu {
+                    background-color: #414141;
+                }
+
+                .dropdown-item {
+                    color: white;
+                }
+
+                label {
+                    color: white;
+                }
+
+                div.dataTables_info {
+                    color: white;
+                }
+
+                footer {
+                    color: white;
+                }
+
+                .btn-outline-primary {
+                    --bs-btn-color: #ff8e00;
+                    --bs-btn-border-color: #ff8e00;
+                    --bs-btn-hover-color: #fff;
+                    --bs-btn-hover-bg: #ff8e00;
+                    --bs-btn-hover-border-color: #ff8e00;
+                    --bs-btn-active-bg: #ff8e00;
+                    --bs-btn-active-border-color: #ff8e00;
+                }
+
+                .btn-outline-warning {
+                    --bs-btn-hover-color: #fff;
+                }
+
+                .table {
+                    --bs-table-striped-color: #ffffff;
+                    --bs-table-striped-bg: rgb(226 226 226 / 5%);
+                    border-color: transparent;
+                    --bs-table-hover-bg: #474646;
+                    --bs-table-hover-color: #fff;
+                }
+
+                .active > .page-link {
+                    background-color: #292929;
+                    border-color: #292929;
+                }
+
+                .page-link {
+                    color: black;
+                }
+
+                span {
+                    color: #fff;
+                }
+
+                p, h3 {
+                    color: white;
+                }
+
+                .login_style {
+                    background-color: #111111;
+                }
+            </style>
+        }
+        else if (theme == "Dark2")
+        {
+            <style>
+                nav {
+                    background-color: #191d43;
+                }
+
+                body {
+                    background-color: #0e0f2e;
+                }
+
+                .card, .modal-content {
+                    background-color: #2c305c;
+                    color: white;
+                }
+
+                .border {
+                    border: #0e0f2e !important;
+                }
+
+                .form-control {
+                    background-color: #4b5086;
+                    color: #ffffff;
+                }
+
+                .table {
+                    --bs-table-color: #fff;
+                    --bs-table-striped-color: #ffffff;
+                    --bs-table-striped-bg: #3e437a;
+                    border-color: transparent;
+                    --bs-table-hover-bg: #555ba5;
+                    --bs-table-hover-color: #fff;
+                }
+
+                .active > .page-link {
+                    background-color: #2c305c;
+                    border-color: #2c305c;
+                }
+
+                .page-link {
+                    color: #2c305c;
+                }
+
+                .btn-outline-primary {
+                    --bs-btn-color: #8a93f4;
+                    --bs-btn-border-color: #8a93f4;
+                    --bs-btn-hover-color: #fff;
+                    --bs-btn-hover-bg: #6a77fc;
+                    --bs-btn-hover-border-color: #6a77fc;
+                    --bs-btn-active-bg: #6a77fc;
+                    --bs-btn-active-border-color: #6a77fc;
+                }
+
+                footer {
+                    color: white;
+                }
+
+                span {
+                    color: #fff;
+                }
+
+                p, h3 {
+                    color: white;
+                }
+
+                .login_style {
+                    color: white;
+                    background-color: #11142d;
+                }
+            </style>
+        }
+    }
+</head>
+<body style="font-family: 'Amiri rev=2'">
+    <nav class="navbar navbar-expand-xxl fixed-top navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="@Url.Action("Index", "Home")" style="font-size:x-large">
+                <img src="https://drive.google.com/uc?export=view&id=18POT781Jc-ZkovOPNM3wLjWD6x8EUjM-"
+                     width="60" height="60" alt="B">
+                نظام التطوير المؤسسي
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-center" id="navbarCollapse">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link @(ViewContext.RouteData.Values["Controller"].ToString() + ViewContext.RouteData.Values["Action"].ToString() == "HomeIndex" ? "active" : "")" aria-current="page" href="@Url.Action("Index", "Home")">الرئيسية</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        @{
+                            String[] LU_Child = { "TrainingProgram", "CourseProvider", "FiscalYear", "Ministries" };
+                        }
+                        <a class="nav-link dropdown-toggle @(LU_Child.Contains(ViewContext.RouteData.Values["Controller"].ToString()) ? "active" : "")" href="" role="button" data-bs-toggle="dropdown">
+                            أكواد النظام
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="@Url.Action("Index", "TrainingProgram")">البرامج التدريبية</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("Index", "TrainingProgram")">الدورات التدريبية</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("Index", "CourseProvider")">المراكز التدريبية</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("Index", "FiscalYear")">العام المالي</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("Index", "Ministries")">الوزارات</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        @{
+                            String[] Reports_Child = { "Query" };
+                        }
+                        <a class="nav-link dropdown-toggle @(Reports_Child.Contains(ViewContext.RouteData.Values["Controller"].ToString()) ? "active" : "")" href="#" role="button" data-bs-toggle="dropdown">
+                            التقارير
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="@Url.Action("CandInfoQuery", "Query")">استعلام عن متدرب</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("CandidateCoursesQuery", "Query")">استعلام عن تسجيل دورة</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("Index", "PowerBIReport")">تقرير موظفين الحكومة</a></li>
+                        </ul>
+                    </li>
+                    @if (User.IsInRole("Administrator"))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link @(ViewContext.RouteData.Values["Controller"].ToString() + ViewContext.RouteData.Values["Action"].ToString() == "UploadIndex" ? "active" : "")" aria-current="page" href="@Url.Action("Index", "Upload")">رفع الملف</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            @{
+                                String[] System_Child = { "Account" };
+                            }
+                            <a class="nav-link dropdown-toggle @(System_Child.Contains(ViewContext.RouteData.Values["Controller"].ToString()) ? "active" : "")" href="" role="button" data-bs-toggle="dropdown">
+                                إدارة النظام
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="@Url.Action("Register", "Account")">إضافة مستخدم</a></li>
+                            </ul>
+                        </li>
+                                }
+                </ul>
+            </div>
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        <img src="https://img.icons8.com/material/48/000000/user-male-circle--v1.png" class="rounded-circle me-2" height="40"
+                             alt="Black and White Portrait of a Man" loading="lazy" style="background-color:white;" />
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end end-0">
+                        <li><strong class="dropdown-item">@User.Identity.Name</strong></li>
+                        @*<li><a class="dropdown-item" href="@Url.Action("Index", "Profile")">الملف الشخصي</a></li>*@
+                        <li><a class="dropdown-item" href="@Url.Action("Index", "Setting")">الإعدادات</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <a class="dropdown-item" href="javascript:document.getElementById('logoutForm').submit()">تسجيل الخروج</a>
+                            }
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container-fluid body-content" style="padding-top: 100px; min-height: calc(100vh - 40px);">
+        <div class="alert alert-warning alert-dismissible fade show" role="alert" style="display:none;" id="PQ">
+
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        @RenderBody()
+    </div>
+    <footer class="text-center">
+        <p> حقوق الملكية &copy; وزارة الاتصالات وتكنولوجيا المعلومات 1999-@DateTime.Now.Year جميع الحقوق محفوظة.</p>
+    </footer>
+
+    @Scripts.Render("~/bundles/jquery")
+    @*@Scripts.Render("~/bundles/bootstrap")*@
+    @RenderSection("scripts", required: false)
+
+    @*Begin select2*@
+    <script src="~/SiteFiles/jQuery plugins/select2/select2-master/dist/js/select2.full.min.js"></script>
+    <script src="~/SiteFiles/jQuery plugins/select2/select2-master/dist/js/i18n/ar.js"></script>
+    @*End select2*@
+
+    @*Begin jQueryDatatbles*@
+    <script src="~/SiteFiles/jQuery plugins/jQueryDatatbles/jquery.dataTables.min.js"></script>
+    <script src="~/SiteFiles/jQuery plugins/jQueryDatatbles/dataTables.bootstrap4.min.js"></script>
+    <script src="~/SiteFiles/jQuery plugins/jQueryDatatbles/dataTables.responsive.min.js"></script>
+    @*End jQueryDatatbles*@
+
+    @*Begin pickadate*@
+    <script src="~/SiteFiles/jQuery plugins/pickadate.js-3.5.6/lib/picker.js"></script>
+    <script src="~/SiteFiles/jQuery plugins/pickadate.js-3.5.6/lib/picker.date.js"></script>
+    <script src="~/SiteFiles/jQuery plugins/pickadate.js-3.5.6/lib/translations/ar.js"></script>
+    @*End pickadate*@
+
+    @*Begin toastr*@
+    <script src="~/SiteFiles/jQuery plugins/toastr-master/build/toastr.min.js"></script>
+    @*End toastr*@
+
+    @*Begin jQuery-Validation-Engine*@
+    <script src="~/SiteFiles/jQuery plugins/jQuery-Validation-Engine-master/js/languages/jquery.validationEngine-ar.js"></script>
+    <script src="~/SiteFiles/jQuery plugins/jQuery-Validation-Engine-master/js/jquery.validationEngine.min.js"></script>
+    @*End jQuery-Validation-Engine*@
+
+
+
+    <script>
+        $(document).ready(function () {
+
+
+               $('.jDataTable').DataTable({
+        "aLengthMenu": [
+            [5, 10, 25, -1],
+            [5, 10, 25, "All"]
+        ],
+        "iDisplayLength": 5,
+
+        "language": {
+            "sProcessing": "جارٍ التحميل...",
+            "sLengthMenu": "أظهر _MENU_ سجلات",
+            "sZeroRecords": "لم يعثر على أية سجلات",
+            "sInfo": "إظهار _START_ إلى _END_ من أصل _TOTAL_ سجل",
+            "sInfoEmpty": "يعرض 0 إلى 0 من أصل 0 سجل",
+            "sInfoFiltered": "(منتقاة من مجموع _MAX_ سجل)",
+            "sInfoPostFix": "",
+            "sSearch": "ابحث:",
+            "sUrl": "",
+            "oPaginate": {
+                "sFirst": "الأول",
+                "sPrevious": "السابق",
+                "sNext": "التالي",
+                "sLast": "الأخير"
+            }
+        }
+    });
+
+        });
+
+
+
+
+        @* Begin toastr functions *@
+        function ShowSuccessfull(msg) {
+            toastr.options = {
+                "closeButton": false,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-bottom-full-width",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "3000",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+            toastr.success(msg, '');
+        }
+
+        function ShowSuccessMess(msg) {
+            //$('.ShowMess').hide().fadeIn(1000).fadeOut(3000).html(msg);
+            //toastr.success(msg, '');
+            toastr.options = {
+                "closeButton": false,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-bottom-left",
+                "preventDuplicates": true,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+            toastr.success(msg, '');
+
+
+        }
+
+        function ShowErrMessFull(msg) {
+            //$('.ShowMess').hide().fadeIn(1000).fadeOut(3000).html(msg);
+            //toastr.success(msg, '');
+            toastr.options = {
+                "closeButton": false,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-top-full-width",
+                "preventDuplicates": true,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+            toastr.error(msg, '');
+
+
+        }
+
+        function ShowErrMess(msg) {
+
+
+            toastr.options = {
+                "closeButton": false,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-bottom-left",
+                "preventDuplicates": true,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+            toastr.error(msg, '');
+
+        }
+
+        function ShowinfoMess(msg) {
+
+            toastr.options = {
+                "closeButton": false,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-bottom-left",
+                "preventDuplicates": true,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+            toastr.info(msg, '');
+
+        }
+       @* End toastr functions *@
+
+
+
+    </script>
+    @{
+        var pq = Context.Request.Cookies["PQ"].Value;
+        string CurrentURL = Request.Url.AbsoluteUri;
+        if (pq == "Y" && !CurrentURL.Contains("Login") && !CurrentURL.Contains("Setting"))
+        {
+            <script>
+                $(document).ready(function () {
+                    var list = ["الحَيَاةُ كَالثَّلْجِ، إِسْتَمْتِعْ بِهَا قَبْلَ أَنْ تَذُوْب",
+                        "لَا يُمْكِنُكَ مَسْحُ أَخْطَائِك، مَادمْتَ تَمْشِيْ فِيْ نَفْسِ الطَّرِيْق",
+                        "بَدَّلَ أن تَسُبَّ الظَّلَام، حَاوِلْ إِصْلَاحَ المِصْبَاح",
+                        "لَا تَجْعَلْ هَمًّا وَاحِدًا يُنْسِيْكَ أَلْفًا مِنَ النِّعَم",
+                        "الكَلِمَةُ الطَّيِّبَةُ زَهْرَةٌ لَا تَذْبُلُ أَوْرَقُهَا، لَا تَبْخَلْ بِهَا",
+                        "لَا بَأْس، نَحْتَاجُ لِلْوُقُوْعِ أَحْيَانًا كَيْ نَشْعُر بِرَوْعَةِ الوُقُوْف",
+                        "يَرَى المُتَشَائِمُ الصُّعُوْبَةَ فِي كُلِّ فُرْصَةٍ، أَمَّا المُتَفَائِلُ فَيَرَى الفُرْصَةَ فِي كُلِّ صُعُوْبَة",
+                        "أَقْوَى النَّاسِ هُمُ الَّذِيْنَ يَبْقُوْنَ الإِبْتِسَامَة",
+                        "بَيْنَ الوَاقِعِ وَالأَشْيَاءِ الجَمِيْلَةِ طَرِيْقٌ يُسَمَّى الصَّبْر",
+                        "إِذَا اخْتَلَّتْ حَيَاتُك، إِعْدِلْهَا بِصَلَاتِك"]
+
+                    setTimeout(function () {
+                        $('#PQ').show();
+                        $('#PQ').append(list[Math.floor(Math.random() * list.length)]);
+                }, 2000);
+            });
+            </script>
+        }
+    }
+
+        </body>
+</html>

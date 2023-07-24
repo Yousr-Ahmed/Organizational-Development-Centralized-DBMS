@@ -1,0 +1,712 @@
+﻿<style>
+    .hide_element {
+        display: none;
+        visibility: hidden;
+    }
+</style>
+<div class="container-fluid">
+    <div class="fade-in">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header"><h3 class="text-center"> <strong>برنامج تنمية وبناء القدرات الرقمية</strong></h3></div>
+                    <div class="card-body">
+                        <div class="col-md-12">
+                            @if (User.IsInRole("Administrator"))
+                            {
+                                <button type="button" class="btn btn-default btn_main" data-bs-toggle="modal" data-bs-target="#myModal" onclick="clearTextBox();">إضافة برنامج</button><br /><br />
+                            }
+                            @*<h4 class="text-center">وزارات</h4>*@
+                            <table id="Min" class="jDataTable table table-striped dt-responsive table-hover" style="width:100%">
+
+                                <thead>
+                                    <tr>
+                                        <th class="hide_element">
+                                            ID
+                                        </th>
+                                        <th>
+                                            برنامج تنمية وبناء القدرات الرقمية
+                                        </th> 
+                                        <th>البرامج</th>
+                                        <th>
+                                            التحكم
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="tbody">
+                                </tbody>
+                            </table>
+ 
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </div>
+</div>
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">إضافة برنامج تنمية وبناء القدرات الرقمية</h4>
+                <button type="button" class="close" data-bs-dismiss="modal">×</button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group hide_element">
+                        @*<input type="hidden" id="TrainingProgramID" name="TrainingProgramID" />*@
+                        @Html.Hidden("TrainingProgramID")
+                        @*<label for="EmployeeId">ID</label>
+                            <input type="text" class="form-control" id="TrainingProgramID" name="TrainingProgramID" placeholder="TrainingProgramID" />*@
+                    </div>
+                    <div class="form-group">
+                        <label for="Name">برنامج تنمية وبناء القدرات الرقمية</label>
+                        <input type="text" class="form-control" id="TrainingProgramName" name="TrainingProgramName" placeholder="برنامج تنمية وبناء القدرات الرقمية" maxlength="100" />
+                    </div>
+                  
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btnAdd" onclick="return Add();">إضافة</button>
+                <button type="button" class="btn btn-outline-warning" id="btnUpdate" style="display:none;" onclick="Update();">تعديل</button>
+                <button type="button" class="btn btn-default" data-bs-dismiss="modal">إغلاق</button>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="modal fade" id="CoursesModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">البرامج التدريبية</h4>
+                <button type="button" class="close" data-bs-dismiss="modal">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="hide_element">
+                    @Html.Hidden("ProgramIDForAdd")
+                </div>
+
+                @if (User.IsInRole("Administrator"))
+                {
+                    <button type="button" class="btn btn-default btn_main" data-bs-toggle="modal" data-bs-target="#AddCoursesModal" onclick="clearCoursesTextBox();">إضافة برنامج</button><br /><br />
+                }
+
+
+                <table id="Tbl_Courses" class="jDataTable table table-striped dt-responsive" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th class="hide_element">
+                                ID
+                            </th>
+                            <th>
+                                البرامج
+                            </th>
+                            <th>
+                                التحكم
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="tbody">
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-bs-dismiss="modal">إغلاق</button>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+<div class="modal fade" id="AddCoursesModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">إضافة برنامج</h4>
+                <button type="button" class="close" data-bs-dismiss="modal">×</button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="hide_element">
+                        @Html.Hidden("CourseID")
+                    </div>
+                    <div class="form-group">
+                        <label for="Name">البرنامج</label>
+                        <input type="text" class="form-control" id="TrainingCourseName" name="TrainingCourseName" placeholder="البرنامج" maxlength="100" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btnAddCourse" onclick="return AddCourse();">إضافة</button>
+                <button type="button" class="btn btn-primary" id="btnUpdateCourse" style="display:none;" onclick="UpdateCourseForProgram();">تعديل</button>
+                <button type="button" class="btn btn-default" data-bs-dismiss="modal">إغلاق</button>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+@section Scripts {
+    @*@Scripts.Render("~/bundles/jqueryval")*@
+<script type="text/javascript">
+
+        ////Load Data in Table when documents is ready
+        $(document).ready(function () {
+            loadData(); 
+        });
+
+        //Load Data function
+        function loadData() {
+            $.ajax({
+                url: '@Url.Action("List", "TrainingProgram")',//"/TrainingProgram/List",
+                type: "GET",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    var table = $('#Min').DataTable();
+                    table.destroy();
+                    var table = $('#Min').DataTable({
+                        "order": [[0, 'desc']],
+                        "data": data,
+                        "columnDefs": [
+                            {
+                                "targets": [0],
+                                "visible": false,
+                                "searchable": false
+                            },
+                            {
+                                    "targets": [3], //fourth column
+                                    "visible": @(User.IsInRole("Administrator") ? "true" : "false"),
+                            }
+],
+
+                        "columns": [
+                            { "data": "TrainingProgramID" },
+                            { "data": "TrainingProgramName" }, 
+                            {
+                                "mRender": function (data, type, row) {
+                                    return '<a href="#"  class="btn btn-outline-primary" onclick="GetCoursesByProgramID(' + row.TrainingProgramID + ');return false;">البرامج</a></td>';
+                                }
+                            },
+                            {
+                                "mRender": function (data, type, row) {
+                                    return '<a href="#"  class="btn btn-outline-warning" onclick="return getbyID(' + row.TrainingProgramID + ')">تعديل</a>  <a href="#"  class="btn btn-outline-danger" onclick="Delele(' + row.TrainingProgramID + ');return false;">حذف</a>  </td>';
+                                }
+                            }
+                        ],
+
+                        "aLengthMenu": [
+                            [5, 10, 25, -1],
+                            [5, 10, 25, "All"]
+                        ],
+                        "iDisplayLength": 5,
+
+                        "language": {
+                            "sProcessing": "جارٍ التحميل...",
+                            "sLengthMenu": "أظهر _MENU_ سجلات",
+                            "sZeroRecords": "لم يعثر على أية سجلات",
+                            "sInfo": "إظهار _START_ إلى _END_ من أصل _TOTAL_ سجل",
+                            "sInfoEmpty": "يعرض 0 إلى 0 من أصل 0 سجل",
+                            "sInfoFiltered": "(منتقاة من مجموع _MAX_ سجل)",
+                            "sInfoPostFix": "",
+                            "sSearch": "ابحث:",
+                            "sUrl": "",
+                            "oPaginate": {
+                                "sFirst": "الأول",
+                                "sPrevious": "السابق",
+                                "sNext": "التالي",
+                                "sLast": "الأخير"
+                            }
+                        }
+
+
+                    });
+
+
+                 
+
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status);
+                    alert(thrownError);
+                }
+            });
+        }
+
+         
+
+        //Add Data Function
+        function Add() {
+            var res = validate();
+            if (res == false) {
+                return false;
+            }
+
+            var TrainingProgram = {};
+            TrainingProgram.TrainingProgramName = $("#TrainingProgramName").val(); 
+             
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("Add", "TrainingProgram")',//"/TrainingProjects/TrainingProgram/Add",
+                data: '{TrainingProgram: ' + JSON.stringify(TrainingProgram) + '}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    if (result == false) {
+                        ShowErrMess("برجاء المحاولة مرة أخري");
+                    }
+                    else {
+                        ShowSuccessMess("تمت الإضافة بنجاح");
+                    }
+                    loadData();
+                    $('#myModal').modal('hide'); 
+                    $('body').removeClass('modal-open');
+                    $('.modal-backdrop').remove();
+
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status);
+                    alert(thrownError);
+                }
+            });
+        }
+
+        //Function for getting the Data Based upon Employee ID
+        function getbyID(TrainingProgramID) {
+            $('#TrainingProgramName').css('border-color', 'lightgrey'); 
+            $.ajax({
+                url: '@Url.Action("GetbyID", "TrainingProgram")',//"/TrainingProjects/TrainingProgram/GetbyID/" + TrainingProgramID,
+                data: { 'ID': TrainingProgramID },
+                typr: "GET",
+                contentType: "application/json;charset=UTF-8",
+                dataType: "json",
+                success: function (result) {
+                    $('#TrainingProgramID').val(result.TrainingProgramID);
+                    $('#TrainingProgramName').val(result.TrainingProgramName); 
+
+                    $('#myModal').modal('show');
+                    $('#btnUpdate').show();
+                    $('#btnAdd').hide();
+
+
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+            return false;
+        }
+
+        //function for updating employee's record
+        function Update() {
+            var res = validate();
+            if (res == false) {
+                return false;
+            }
+
+            var TrainingProgram = {};
+            TrainingProgram.TrainingProgramID = $("#TrainingProgramID").val();
+            TrainingProgram.TrainingProgramName = $("#TrainingProgramName").val(); 
+
+            $.ajax({
+                url: '@Url.Action("Update", "TrainingProgram")',//"/TrainingProjects/TrainingProgram/Update",
+                data: '{TrainingProgram: ' + JSON.stringify(TrainingProgram) + '}',
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    if (result == false) {
+                        ShowErrMess("برجاء المحاولة مرة أخري");
+                    }
+                    else {
+                        ShowSuccessMess("تم التعديل بنجاح");
+                    }
+                    loadData();
+                    $('#myModal').modal('hide');
+                    $('#TrainingProgramID').val("");
+                    $('#TrainingProgramName').val(""); 
+
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status);
+                    alert(thrownError);
+                }
+            });
+        }
+
+
+
+        //function for deleting employee's record
+        function Delele(ID) {
+            var ans = confirm("هل تريد تأكيد الحذف؟");
+            if (ans) {
+                $.ajax({
+                    url: '@Url.Action("Delete", "TrainingProgram")',//"/TrainingProjects/TrainingProgram/Delete/" + ID,
+                    data: { 'ID': ID },
+                    type: "GET",
+                    contentType: "application/json;charset=UTF-8",
+                    dataType: "json",
+                    success: function (result) {
+                        if (result == false) {
+                            ShowErrMess("لا يمكنك الحذف(هناك بيانات مرتبطة بهذا السجل)");
+                        }
+                        else {
+                            ShowSuccessMess("تم الحذف بنجاح");
+                        }
+                        loadData();
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status);
+                        alert(thrownError);
+                    }
+                });
+            }
+
+        }
+
+
+
+        function clearTextBox() {
+            $('#TrainingProgramID').val("");
+            $('#TrainingProgramName').val("");
+            $('#btnUpdate').hide();
+            $('#btnAdd').show();
+            $('#TrainingProgramName').css('border-color', 'lightgrey');
+        }
+        //Valdidation using jquery
+        function validate() {
+            var isValid = true;
+            if ($('#TrainingProgramName').val().trim() == "") {
+                $('#TrainingProgramName').css('border-color', 'Red');
+                isValid = false;
+            }
+            else {
+                $('#TrainingProgramName').css('border-color', 'lightgrey');
+            }
+           
+            return isValid;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //Valdidation using jquery
+    function validateCourse() {
+        var isValid = true;
+        if ($('#TrainingCourseName').val().trim() == "") {
+            $('#TrainingCourseName').css('border-color', 'Red');
+            isValid = false;
+        }
+        else {
+            $('#TrainingCourseName').css('border-color', 'lightgrey');
+        }
+        return isValid;
+    }
+
+
+        function clearCoursesTextBox() {
+            $('#TrainingProgramID').val("");
+            $('#TrainingCourseName').val("");
+            $('#btnUpdateCourse').hide();
+            $('#btnAddCourse').show();
+            $('#TrainingCourseName').css('border-color', 'lightgrey');
+        }
+
+
+
+           //Load Data function
+        function GetCoursesByProgramID(ID) {
+            $('#CoursesModal').modal('show');
+            $('#ProgramIDForAdd').val(ID);
+
+            $.ajax({
+                url: '@Url.Action("GetCoursesByProgramID", "TrainingProgram")',//"/TrainingProgram/List",
+                data: { 'ID': ID },
+                type: "GET",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    var table = $('#Tbl_Courses').DataTable();
+                    table.destroy();
+                    var table = $('#Tbl_Courses').DataTable({
+                        "order": [[0, 'desc']],
+                        "data": data,
+                        "columnDefs": [
+                            {
+                                "targets": [0],
+                                "visible": false,
+                                "searchable": false
+                            },
+                            @*{
+                                    "targets": [2], //first column
+                                "visible": @(User.IsInRole("Administrator") ? "true" : "false"), // had syntactical error extra colon was there before question mark.
+                            }*@
+],
+
+                        "columns": [
+                            { "data": "TrainingCourseID" },
+                            { "data": "TrainingCourseName" },
+                            {
+                                "mRender": function (data, type, row) {
+                                    return '<a href="#"  class="btn btn-outline-warning" onclick="return GetCourseByProgramID(' + row.TrainingCourseID + ')">تعديل</a>  <a href="#"  class="btn btn-outline-danger" onclick="DeleleCourseForProgram(' + row.TrainingCourseID + ');return false;">حذف</a>  </td>';
+                                }
+                            }
+                        ],
+
+                        "aLengthMenu": [
+                            [5, 10, 25, -1],
+                            [5, 10, 25, "All"]
+                        ],
+                        "iDisplayLength": 5,
+
+                        "language": {
+                            "sProcessing": "جارٍ التحميل...",
+                            "sLengthMenu": "أظهر _MENU_ سجلات",
+                            "sZeroRecords": "لم يعثر على أية سجلات",
+                            "sInfo": "إظهار _START_ إلى _END_ من أصل _TOTAL_ سجل",
+                            "sInfoEmpty": "يعرض 0 إلى 0 من أصل 0 سجل",
+                            "sInfoFiltered": "(منتقاة من مجموع _MAX_ سجل)",
+                            "sInfoPostFix": "",
+                            "sSearch": "ابحث:",
+                            "sUrl": "",
+                            "oPaginate": {
+                                "sFirst": "الأول",
+                                "sPrevious": "السابق",
+                                "sNext": "التالي",
+                                "sLast": "الأخير"
+                            }
+                        }
+
+
+                    });
+
+
+
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status);
+                    alert(thrownError);
+                }
+            });
+        }
+
+
+        //Add Data Function
+    function AddCourse() {
+        var res = validateCourse();
+            if (res == false) {
+                return false;
+            }
+
+        //var TrainingCourse = {};
+        //TrainingCourse.TrainingCourseName = $("#TrainingCourseName").val();
+        //TrainingCourse.ProgramID = $("#ProgramIDForAdd").val();
+
+
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("AddCourseForProgram", "TrainingProgram")',//"/TrainingProjects/TrainingProgram/Add",
+                //data: '{TrainingCourse: ' + JSON.stringify(TrainingCourse) + '}',
+                //data: JSON.stringify(TrainingCourse),
+                data: { //Passing data
+                    TrainingCourseName: $("#TrainingCourseName").val(), //Reading text box values using Jquery
+                    TrainingProgramID: $("#ProgramIDForAdd").val()
+                },
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    if (result == false) {
+                        ShowErrMess("برجاء المحاولة مرة أخري");
+                    }
+                    else {
+                        ShowSuccessMess("تمت الإضافة بنجاح");
+                    }
+                    GetCoursesByProgramID($('#ProgramIDForAdd').val());
+                    $('#AddCoursesModal').modal('hide');
+                    //$("#myModal").modal({ backdrop: false }); //Not Working
+                    $('body').removeClass('modal-open');
+                    $('.modal-backdrop').remove();
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status);
+                    alert(thrownError);
+                }
+            });
+        }
+
+
+
+
+
+
+
+
+
+
+
+       //Function for getting the Data Based upon Employee ID
+    function GetCourseByProgramID(TrainingProgramID) {
+        $('#TrainingCourseName').css('border-color', 'lightgrey');
+            $.ajax({
+                url: '@Url.Action("GetCourseByProgramID", "TrainingProgram")',//"/TrainingProjects/TrainingProgram/GetbyID/" + TrainingProgramID,
+                data: { 'ID': TrainingProgramID },
+                typr: "GET",
+                contentType: "application/json;charset=UTF-8",
+                dataType: "json",
+                success: function (result) {
+                    $('#CourseID').val(result.TrainingCourseID);
+                    $('#TrainingCourseName').val(result.TrainingCourseName);
+
+                    $('#AddCoursesModal').modal('show');
+                    $('#btnUpdateCourse').show();
+                    $('#btnAddCourse').hide();
+
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status);
+                    alert(thrownError);
+                }
+            });
+            return false;
+        }
+
+        //function for updating employee's record
+    function UpdateCourseForProgram() {
+        var res = validateCourse();
+            if (res == false) {
+                return false;
+            }
+
+            $.ajax({
+                url: '@Url.Action("UpdateCourseForProgram", "TrainingProgram")',//"/TrainingProjects/TrainingProgram/Update",
+                //data: '{TrainingProgram: ' + JSON.stringify(TrainingProgram) + '}',
+                data: { //Passing data
+                    TrainingCourseName: $("#TrainingCourseName").val(), //Reading text box values using Jquery
+                    TrainingCourseID: $("#CourseID").val()
+                },
+                type: "GET",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    if (result == false) {
+                        ShowErrMess("برجاء المحاولة مرة أخري");
+                    }
+                    else {
+                        ShowSuccessMess("تم التعديل بنجاح");
+                    }
+                    GetCoursesByProgramID($('#ProgramIDForAdd').val());
+                    $('#AddCoursesModal').modal('hide');
+                    $('#CourseID').val("");
+                    $('#TrainingCourseName').val("");
+
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status);
+                    alert(thrownError);
+                }
+            });
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+           //function for deleting employee's record
+    function DeleleCourseForProgram(ID) {
+            var ans = confirm("هل تريد تأكيد الحذف؟");
+            if (ans) {
+                $.ajax({
+                    url: '@Url.Action("DeleteCourseForProgram", "TrainingProgram")',//"/TrainingProjects/TrainingProgram/Delete/" + ID,
+                    data: { 'ID': ID },
+                    type: "GET",
+                    contentType: "application/json;charset=UTF-8",
+                    dataType: "json",
+                    success: function (result) {
+                        if (result == false) {
+                            ShowErrMess("لا يمكنك الحذف(هناك بيانات مرتبطة بهذا السجل)");
+                        }
+                        else {
+                            ShowSuccessMess("تم الحذف بنجاح");
+                        }
+                        GetCoursesByProgramID($('#ProgramIDForAdd').val());
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status);
+                        alert(thrownError);
+                    }
+                });
+            }
+
+        }
+
+
+</script>
+
+
+
+
+}

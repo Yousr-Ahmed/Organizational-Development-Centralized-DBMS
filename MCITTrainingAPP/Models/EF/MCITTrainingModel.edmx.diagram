@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c69043f81e6f4577b0cef6b45e5ba6ef" Name="Diagram1">
+        <EntityTypeShape EntityType="MCITTrainingDBModel.LU_CourseProvider" Width="1.5" PointX="3" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="MCITTrainingDBModel.LU_EmploymentDegree" Width="1.5" PointX="3" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MCITTrainingDBModel.LU_EmploymentLevel" Width="1.5" PointX="0.75" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MCITTrainingDBModel.LU_StudyMechanism" Width="1.5" PointX="3" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MCITTrainingDBModel.LU_TrainingCourse" Width="1.5" PointX="3" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MCITTrainingDBModel.LU_TrainingProgram" Width="1.5" PointX="0.75" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="MCITTrainingDBModel.sysdiagram" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MCITTrainingDBModel.TBL_Candidates_Courses" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MCITTrainingDBModel.TBL_CandidatesInfo" Width="1.5" PointX="3" PointY="13.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MCITTrainingDBModel.TBL_FiscalYear" Width="1.5" PointX="3" PointY="16.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MCITTrainingDBModel.TBL_Ministries" Width="1.5" PointX="0.75" PointY="19" IsExpanded="true" />
+        <EntityTypeShape EntityType="MCITTrainingDBModel.TBL_SubMinistry" Width="1.5" PointX="3" PointY="19" IsExpanded="true" />
+        <AssociationConnector Association="MCITTrainingDBModel.FK_TBL_Candidates_LU_CourseProvider" ManuallyRouted="false" />
+        <AssociationConnector Association="MCITTrainingDBModel.FK_LU_EmploymentDegree_LU_EmploymentLevel" ManuallyRouted="false" />
+        <AssociationConnector Association="MCITTrainingDBModel.FK_TBL_Candidates_LU_EmploymentDegree" ManuallyRouted="false" />
+        <AssociationConnector Association="MCITTrainingDBModel.FK_TBL_Candidates_LU_StudyMechanism" ManuallyRouted="false" />
+        <AssociationConnector Association="MCITTrainingDBModel.FK_LU_TrainingCourse_LU_TrainingProgram1" ManuallyRouted="false" />
+        <AssociationConnector Association="MCITTrainingDBModel.FK_TBL_Candidates_LU_TrainingCourse" ManuallyRouted="false" />
+        <AssociationConnector Association="MCITTrainingDBModel.FK_TBL_Candidates_Ministries_TBL_CandidatesInfo" ManuallyRouted="false" />
+        <AssociationConnector Association="MCITTrainingDBModel.FK_TBL_Candidates_Ministries_TBL_SubMinistry" ManuallyRouted="false" />
+        <AssociationConnector Association="MCITTrainingDBModel.FK_TBL_Candidates_TBL_FiscalYear" ManuallyRouted="false" />
+        <AssociationConnector Association="MCITTrainingDBModel.FK_TBL_SubMinistry_TBL_Ministries" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

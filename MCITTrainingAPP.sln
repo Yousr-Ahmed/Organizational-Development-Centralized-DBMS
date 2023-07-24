@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32526.322
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MCITTrainingAPP", "MCITTrainingAPP\MCITTrainingAPP.csproj", "{D73883E2-DA84-41C4-B62A-90B96250B75C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D73883E2-DA84-41C4-B62A-90B96250B75C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D73883E2-DA84-41C4-B62A-90B96250B75C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D73883E2-DA84-41C4-B62A-90B96250B75C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D73883E2-DA84-41C4-B62A-90B96250B75C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FFA1D67A-8532-4E5D-9B32-A57D5E53E8FB}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,124 @@
+﻿
+@{
+    ViewBag.Title = "Setting";
+}
+<br />
+<div class="container">
+    <div class="row align-items-center justify-content-center">
+        <div class="col-md-6 align-self-center rounded card border p-4">
+            <div class="text-center">
+                <h3>
+                    <strong>
+                        الإعدادات
+                    </strong>
+                </h3>
+            </div>
+            <hr style="margin:0"/> 
+            <br />
+            <div class="Card-body">
+
+                <h4>اختار الوضع</h4>
+                <div class="container">
+                    <div class="row">
+                        <div class="input-group m-2">
+                            <div class="input-group-text">
+                                <input class="form-check-input" type="radio" id="Light" name="Theme" value="Light">
+                            </div>
+                            <label class="input-group-text col-md-2 rounded" for="Light">النهاري</label><br>
+                        </div>
+                        <div class="input-group m-2">
+                            <div class="input-group-text">
+                                <input class="form-check-input" type="radio" id="Dark1" name="Theme" value="Dark1">
+                            </div>
+                            <label class="input-group-text col-md-2 rounded" for="Dark1">الليلى الأسود</label><br>
+                        </div>
+                        <div class="input-group m-2">
+                            <div class="input-group-text">
+                                <input class="form-check-input" type="radio" id="Dark2" name="Theme" value="Dark2">
+                            </div>
+                            <label class="input-group-text col-md-2 rounded" for="Dark2">الليلى الأزرق</label><br>
+                        </div>
+                    </div>
+                </div>
+
+
+                <h4>تشغيل الرسائل</h4>
+                <div class="container">
+                    <div class="row">
+                        <div class="input-group m-2">
+                            <div class="input-group-text">
+                                <input class="form-check-input" type="radio" id="y" name="PQ" value="Y">
+                            </div>
+                            <label class="input-group-text col-md-2 rounded" for="Y">نعم</label><br>
+                        </div>
+                        <div class="input-group m-2">
+                            <div class="input-group-text">
+                                <input class="form-check-input" type="radio" id="n" name="PQ" value="N">
+                            </div>
+                            <label class="input-group-text col-md-2 rounded" for="N">لا</label><br>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script>
+        // Check radio button for current value of theme
+        $(document).ready(function () {
+            $.ajax({
+                url: '@Url.Action("GetTheme", "Setting")',
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    $('input[type=radio][name=Theme][value=' + result + ']').prop("checked", true);
+                }
+            });
+            $.ajax({
+                url: '@Url.Action("GetPQ", "Setting")',
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    $('input[type=radio][name=PQ][value=' + result + ']').prop("checked", true);
+                }
+            });
+        });
+        // when choose another radio button change value in cookies
+        $('input[type=radio][name=Theme]').change(function () {
+            var choosed_theme = this.value;
+            $.ajax({
+                url: '@Url.Action("ChangeTheme", "Setting")',
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                data: '{theme_value: ' + JSON.stringify(choosed_theme) + '}',
+                success: function (result) {
+                    location.reload(true);
+                }
+            });
+        });
+        // when choose another radio button change value in cookies
+        $('input[type=radio][name=PQ]').change(function () {
+            var Qoute_value = this.value;
+            $.ajax({
+                url: '@Url.Action("ChangePQ", "Setting")',
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                data: '{Qoute_value: ' + JSON.stringify(Qoute_value) + '}',
+                success: function (result) {
+                    location.reload(true);
+                }
+            });
+        });
+
+    </script>
+
+
+}

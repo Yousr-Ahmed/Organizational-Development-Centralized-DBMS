@@ -1,0 +1,111 @@
+﻿@model List<MCITTrainingAPP.Models.EF.TBL_Candidates_Courses>
+@{
+    Layout = null;
+}
+
+<html dir="rtl">
+<head>
+    <title> </title>
+    <meta charset="utf-8" />
+
+    <link href="@Server.MapPath(Url.Content("~/Content/bootstrap.css"))" rel="stylesheet" type="text/css" />
+
+    <style>
+
+        table,
+        thead,
+        tr,
+        tbody,
+        th,
+        td {
+            text-align: center !important;
+            direction: rtl;
+        }
+
+        .table td {
+            text-align: center !important;
+            direction: rtl;
+        }
+
+        .table {
+            /*border: 1px solid #ccc;
+            float: right;
+            font-size: 16px;
+            background-color: cornsilk;*/
+            margin-top: 50px;
+            font-family: blissregular, Arial;
+            direction: rtl;
+        }
+
+
+        tr {
+            page-break-inside: avoid !important;
+        }
+
+
+        .header_for_pdf {
+            color: #4f5d73;
+            /*background-color: #ced2d8;*/
+            font-size: 20px !important;
+        }
+
+        .breakhere {
+            page-break-after: always
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="fade-in">
+            <div class="row">
+                <div class="col-md-12">
+                    @if (Model != null && Model.Count > 0)
+                    {
+                        <div class="row">
+                            <h3>البيانات الشخصية</h3>
+                            <p><b>الإسم بالكامل:</b> @Model.FirstOrDefault().TBL_CandidatesInfo.CandFullName</p>
+                            <p><b>الرقم القومي:</b> @Model.FirstOrDefault().TBL_CandidatesInfo.CandNationalID</p>
+                            <p><b>البريد الإلكتروني:</b> @Model.FirstOrDefault().TBL_CandidatesInfo.CandEmail</p>
+                            <p><b>رقم المحمول:</b> @Model.FirstOrDefault().TBL_CandidatesInfo.CandMobileNumber</p>
+                        </div>
+                        <hr />
+                        <h3>البيانات التدريبية</h3>
+                        <table class="table jDataTable">
+                            <thead>
+                                <tr>
+                                    <th>اسم الرنامج التدريبي</th>
+                                    <th>اسم الدورة اتدريبية</th>
+                                    <th>تاريخ بداية الدورة</th>
+                                    <th>تاريخ نهاية الدورة</th>
+                                    <th>موقف التنفيذ</th>
+                                    <th>العام المالي</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var Course in Model)
+                                {
+                                    <tr>
+                                        <td>@Course.LU_TrainingCourse.LU_TrainingProgram.TrainingProgramName</td>
+                                        <td>@Course.LU_TrainingCourse.TrainingCourseName</td>
+                                        <td>@Course.CandStartDate</td>
+                                        <td>@Course.CandEndDate</td>
+                                        <td>@Course.LU_StudyMechanism.StudyMechanismName</td>
+                                        <td>@Course.TBL_FiscalYear.FiscalYear</td>
+                                    </tr>
+
+                                }
+                            </tbody>
+                        </table>
+
+                    }
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+﻿@model IEnumerable<MCITTrainingAPP.Models.EF.LU_TrainingCourse>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TrainingCourseName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TrainingCourseCost)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LU_TrainingProgram.TrainingProgramName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TrainingCourseName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TrainingCourseCost)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LU_TrainingProgram.TrainingProgramName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.TrainingCourseID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.TrainingCourseID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.TrainingCourseID })
+        </td>
+    </tr>
+}
+
+</table>

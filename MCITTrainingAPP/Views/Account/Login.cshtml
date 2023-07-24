@@ -1,0 +1,248 @@
+﻿@*@{
+        Layout = null;
+    }*@
+@using MCITTrainingAPP.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Log in";
+}
+@*<h2>@ViewBag.Title.</h2>*@
+
+<script>
+
+        var TxtType = function (el, toRotate, period) {
+            this.toRotate = toRotate;
+            this.el = el;
+            this.loopNum = 0;
+            this.period = parseInt(period, 10) || 2000;
+            this.txt = '';
+            this.tick();
+            this.isDeleting = false;
+        };
+
+        TxtType.prototype.tick = function () {
+            var i = this.loopNum % this.toRotate.length;
+            var fullTxt = this.toRotate[i];
+
+            if (this.isDeleting) {
+                this.txt = fullTxt.substring(0, this.txt.length - 1);
+            } else {
+                this.txt = fullTxt.substring(0, this.txt.length + 1);
+            }
+
+            this.el.innerHTML = '<span class="wrap">' + this.txt + '</span>';
+
+            var that = this;
+            var delta = 80;
+
+            if (this.isDeleting) {
+                delta /= 2;
+            }
+
+            if (!this.isDeleting && this.txt === fullTxt) {
+                @*delta = this.period;
+                this.isDeleting = true;*@
+                return;
+            } else if (this.isDeleting && this.txt === '') {
+                this.isDeleting = false;
+                this.loopNum++;
+                delta = 500;
+            }
+
+            setTimeout(function () {
+                that.tick();
+            }, delta);
+        };
+
+        window.onload = function () {
+            var elements = document.getElementsByClassName('typewrite');
+            for (var i = 0; i < elements.length; i++) {
+                var toRotate = elements[i].getAttribute('data-type');
+                var period = elements[i].getAttribute('data-period');
+                if (toRotate) {
+                    new TxtType(elements[i], JSON.parse(toRotate), period);
+                }
+            }
+            // INJECT CSS
+            var css = document.createElement("style");
+            css.type = "text/css";
+            css.innerHTML = ".typewrite > .wrap { border-left: 0.08em solid #fff}";
+            document.body.appendChild(css);
+        };</script>
+<style>
+
+
+    .btn {
+        color: #fff;
+        text-transform: uppercase;
+        font-family: sans-serif;
+        box-sizing: border-box;
+        background: linear-gradient(90deg, yellow, orange, red, white, black, yellow);
+        background-size: 400%;
+        border-radius: 30px;
+    }
+
+        .btn:hover {
+            animation: animate 8s linear infinite;
+        }
+
+    @@keyframes animate {
+        0% {
+            background-position: 0%;
+        }
+
+        100% {
+            background-position: 400%;
+        }
+    }
+
+    .btn:before {
+        content: "";
+        background: linear-gradient(45deg, #f15523, #ef3224, #7c3697);
+        background-size: 400%;
+        border-radius: 40px;
+        opacity: 0;
+    }
+
+    .btn:hover:before {
+        filter: blur(20px);
+        opacity: 1;
+        animation: animate 8s linear infinite;
+    }
+</style>
+@{
+    var theme = Context.Request.Cookies["Theme"].Value;
+    if (theme == "Light")
+    {
+        <style>
+            body {
+                background-image: url("https://drive.google.com/uc?export=view&id=1busPCaxVwMSaHJhJrKdDGEAXNHJ_0iVe");
+                background-repeat: no-repeat;
+                background-size: contain;
+                background-color: #c0d2dc;
+            }
+        </style>
+    }
+    else if (theme == "Dark1")
+    {
+        <style>
+            body {
+                background-image: url("https://drive.google.com/uc?export=view&id=1rWdvDmlbs39PiWSgZiwoBnMHXIdkRGbB");
+                background-repeat: no-repeat;
+                background-size: contain;
+                background-color: black;
+            }
+        </style>
+    }
+    else if (theme == "Dark2")
+    {
+        <style>
+            body {
+                background-image: url("https://drive.google.com/uc?export=view&id=1fUMDDGhXW9GOToPOEAb7CbHwXGbZxNmq");
+                background-repeat: no-repeat;
+                background-size: contain;
+                background-color: #08101a;
+            }
+        </style>
+    }
+
+}
+<div class="text" style="padding: 0 140px">
+    <h1 class="typewrite" data-period="" id="title" style="color: #ffffff"
+        data-type='[ "مرحباً بك في نظام التطوير المؤسسي" ]'>
+        <strong><span class="wrap" style="color: #ffffff"></span></strong>
+    </h1>
+</div>
+<br />
+<br />
+<br />
+@*<img class="float-end" src="https://drive.google.com/uc?export=view&id=150aZlw4GtCYhsiSmXnR9OuhOm86RaZ22" />*@
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-5">
+        @*display: none*@
+        <section id="loginForm" class="rounded login_style p-4" style="display: none;padding-right:30px; padding-bottom: 20px">
+            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="form-group">
+                    <label class="my-1">البريد الالكترونى</label>
+                    @*@Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })*@
+
+                    <div class="col-auto">
+                        <div class="row">
+                            <div class="col-md-9">@Html.TextBoxFor(m => m.Email, new { @class = "form-control" })</div>
+                            <div class="col"><button type="button" class="btn btn-default">التالي</button></div>
+                        </div>
+
+
+                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group" style="display: none" id="pass">
+                    <label class="my-1">كلمة المرور</label>
+                    @*@Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })*@
+                    <div class="col-auto">
+                        <div class="row">
+                            <div class="col-md-9">@Html.PasswordFor(m => m.Password, new { @class = "form-control" })</div>
+                            <div class="col"><input type="submit" value="الدخول" class="btn btn-default" /></div>
+                        </div>
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <div class="checkbox">
+                                @Html.CheckBoxFor(m => m.RememberMe)
+                                <label class="my-1">تذكرنى؟ </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                @*<p>
+                        @Html.ActionLink("Register as a new user", "Register")
+                    </p>*@
+                @* Enable this once you have account confirmation enabled for password reset functionality
+                    <p>
+                        @Html.ActionLink("Forgot your password?", "ForgotPassword")
+                    </p>*@
+            }
+        </section>
+    </div>
+
+    @*<div class="col-md-4">
+            <section id="socialLoginForm">
+                @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+            </section>
+        </div>*@
+</div>
+
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function () {
+            $('nav').hide();
+            $('.alert').hide();
+            $('button').click(function () {
+                $('#pass').show();
+                $("button").hide();
+            });
+
+            function everyTime() {
+                if ($("#title").text() == "مرحباً بك في نظام التطوير المؤسسي")
+                    $("#loginForm").show();
+            }
+
+            var myInterval = setInterval(everyTime, 1000);
+
+
+        });
+    </script>
+}

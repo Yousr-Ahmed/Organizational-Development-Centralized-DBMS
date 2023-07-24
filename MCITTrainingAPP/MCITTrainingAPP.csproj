@@ -1,0 +1,1284 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D73883E2-DA84-41C4-B62A-90B96250B75C}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MCITTrainingAPP</RootNamespace>
+    <AssemblyName>MCITTrainingAPP</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>44352</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ClosedXML, Version=0.96.0.0, Culture=neutral, PublicKeyToken=fd1eb21b62ae805b, processorArchitecture=MSIL">
+      <HintPath>..\packages\ClosedXML.0.96.0\lib\net46\ClosedXML.dll</HintPath>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.16.0.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocumentFormat.OpenXml.2.16.0\lib\net46\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
+    <Reference Include="ExcelNumberFormat, Version=1.1.0.0, Culture=neutral, PublicKeyToken=23c6f5d73be07eca, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExcelNumberFormat.1.1.0\lib\net20\ExcelNumberFormat.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Rotativa, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rotativa.1.7.3\lib\net461\Rotativa.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.7\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.3\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.3\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.3\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin">
+      <HintPath>..\packages\Microsoft.Owin.4.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.4.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security">
+      <HintPath>..\packages\Microsoft.Owin.Security.4.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.4.0.1\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.4.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.4.0.1\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter">
+      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.4.0.1\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount">
+      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.4.0.1\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.4.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LookUps\CourseProviderController.cs" />
+    <Compile Include="Controllers\LookUps\FiscalYearController.cs" />
+    <Compile Include="Controllers\LookUps\MinistriesController.cs" />
+    <Compile Include="Controllers\LookUps\TrainingCourseController.cs" />
+    <Compile Include="Controllers\LookUps\TrainingProgramController.cs" />
+    <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PowerBIReportController.cs" />
+    <Compile Include="Controllers\ProfileController.cs" />
+    <Compile Include="Controllers\QueryController.cs" />
+    <Compile Include="Controllers\SettingController.cs" />
+    <Compile Include="Controllers\UploadController.cs" />
+    <Compile Include="DataBaseServices\CandidateService.cs" />
+    <Compile Include="DataBaseServices\CourseProviderService.cs" />
+    <Compile Include="DataBaseServices\FiscalYearsService.cs" />
+    <Compile Include="DataBaseServices\MinistriesService.cs" />
+    <Compile Include="DataBaseServices\SubMinistriesService.cs" />
+    <Compile Include="DataBaseServices\TrainingCourseService.cs" />
+    <Compile Include="DataBaseServices\TrainingProgramsService.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AppModels\CandidateModel.cs" />
+    <Compile Include="Models\AppModels\CourseProviderModel.cs" />
+    <Compile Include="Models\AppModels\FiscalYearModel.cs" />
+    <Compile Include="Models\AppModels\SubMinistryModel.cs" />
+    <Compile Include="Models\AppModels\TrainingCourseModel.cs" />
+    <Compile Include="Models\AppModels\TrainingProgramModel.cs" />
+    <Compile Include="Models\EF\LU_CourseProvider.cs">
+      <DependentUpon>MCITTrainingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EF\LU_EmploymentDegree.cs">
+      <DependentUpon>MCITTrainingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EF\LU_EmploymentLevel.cs">
+      <DependentUpon>MCITTrainingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EF\LU_StudyMechanism.cs">
+      <DependentUpon>MCITTrainingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EF\LU_TrainingCourse.cs">
+      <DependentUpon>MCITTrainingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EF\LU_TrainingProgram.cs">
+      <DependentUpon>MCITTrainingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EF\MCITTrainingModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MCITTrainingModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EF\MCITTrainingModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MCITTrainingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EF\MCITTrainingModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MCITTrainingModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EF\numberOfCandidatePerSubMinstriy_Result.cs">
+      <DependentUpon>MCITTrainingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EF\spCandNumPerCourse_Result.cs">
+      <DependentUpon>MCITTrainingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EF\spCandNumPerMinistry_SubMinistry_Result.cs">
+      <DependentUpon>MCITTrainingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EF\spCandNumPerProgram_Result.cs">
+      <DependentUpon>MCITTrainingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EF\spCandPerFiscalYear_Result.cs">
+      <DependentUpon>MCITTrainingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EF\spCanNumPerCourse_Result.cs">
+      <DependentUpon>MCITTrainingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EF\spCanNumPerLevel_Result.cs">
+      <DependentUpon>MCITTrainingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EF\spCanNumPerMechanism_Result.cs">
+      <DependentUpon>MCITTrainingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EF\spCanNumPerMech_Result.cs">
+      <DependentUpon>MCITTrainingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EF\spCanNumPerMinis_Result.cs">
+      <DependentUpon>MCITTrainingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EF\spCanNumPerProg_Result.cs">
+      <DependentUpon>MCITTrainingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EF\spCanNumPerProvider_Result.cs">
+      <DependentUpon>MCITTrainingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EF\spCourseNumPerProvider_Result.cs">
+      <DependentUpon>MCITTrainingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EF\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>MCITTrainingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EF\sp_helpdiagrams_Result.cs">
+      <DependentUpon>MCITTrainingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EF\sysdiagram.cs">
+      <DependentUpon>MCITTrainingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EF\TBL_CandidatesInfo.cs">
+      <DependentUpon>MCITTrainingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EF\TBL_Candidates_Courses.cs">
+      <DependentUpon>MCITTrainingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EF\TBL_FiscalYear.cs">
+      <DependentUpon>MCITTrainingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EF\TBL_Ministries.cs">
+      <DependentUpon>MCITTrainingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EF\TBL_SubMinistry.cs">
+      <DependentUpon>MCITTrainingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AppModels\AlreadyAddedCandidatesList.cs" />
+    <Compile Include="Models\AppModels\MinistryModel.cs" />
+    <Compile Include="ProjectHelper\ProjectHelper.cs" />
+    <Compile Include="Models\ViewModels\EmployeeFormValuesModel.cs" />
+    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\AppModels\ExcelInvalidWithReasons.cs" />
+    <Compile Include="Models\ViewModels\UploadModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Models\EF\MCITTrainingModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MCITTrainingModel.edmx</DependentUpon>
+      <LastGenOutput>MCITTrainingModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\EF\MCITTrainingModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MCITTrainingModel.edmx</DependentUpon>
+      <LastGenOutput>MCITTrainingModel.cs</LastGenOutput>
+    </Content>
+    <Content Include="Rotativa\help-wkhtmltoimage.txt" />
+    <Content Include="Rotativa\help-wkhtmltopdf.txt" />
+    <Content Include="Rotativa\wkhtmltoimage.exe" />
+    <Content Include="Rotativa\wkhtmltopdf.exe" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <EntityDeploy Include="Models\EF\MCITTrainingModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>MCITTrainingModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\EF\MCITTrainingModel.edmx.diagram">
+      <DependentUpon>MCITTrainingModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="App_Browsers\qt.browser" />
+    <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.4.1.js" />
+    <Content Include="Scripts\jquery-3.4.1.min.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="SiteFiles\icons\excel-icon.png" />
+    <Content Include="SiteFiles\icons\free.svg" />
+    <Content Include="SiteFiles\icons\pdf-32_red.ico" />
+    <Content Include="SiteFiles\jQuery plugins\jQuery-Validation-Engine-master\css\screenshot.png" />
+    <Content Include="SiteFiles\jQuery plugins\jQuery-Validation-Engine-master\css\style.css" />
+    <Content Include="SiteFiles\jQuery plugins\jQuery-Validation-Engine-master\css\validationEngine.jquery.css" />
+    <Content Include="SiteFiles\jQuery plugins\jQuery-Validation-Engine-master\images\bg.jpg" />
+    <Content Include="SiteFiles\jQuery plugins\jQuery-Validation-Engine-master\images\bg2.png" />
+    <Content Include="SiteFiles\jQuery plugins\jQuery-Validation-Engine-master\js\contrib\other-validations.js" />
+    <Content Include="SiteFiles\jQuery plugins\jQuery-Validation-Engine-master\js\jquery.validationEngine.js" />
+    <Content Include="SiteFiles\jQuery plugins\jQuery-Validation-Engine-master\js\jquery.validationEngine.min.js" />
+    <Content Include="SiteFiles\jQuery plugins\jQuery-Validation-Engine-master\js\languages\jquery.validationEngine-ar.js" />
+    <Content Include="SiteFiles\jQuery plugins\jQuery-Validation-Engine-master\js\languages\jquery.validationEngine-bg.js" />
+    <Content Include="SiteFiles\jQuery plugins\jQuery-Validation-Engine-master\js\languages\jquery.validationEngine-ca.js" />
+    <Content Include="SiteFiles\jQuery plugins\jQuery-Validation-Engine-master\js\languages\jquery.validationEngine-cz.js" />
+    <Content Include="SiteFiles\jQuery plugins\jQuery-Validation-Engine-master\js\languages\jquery.validationEngine-da.js" />
+    <Content Include="SiteFiles\jQuery plugins\jQuery-Validation-Engine-master\js\languages\jquery.validationEngine-de.js" />
+    <Content Include="SiteFiles\jQuery plugins\jQuery-Validation-Engine-master\js\languages\jquery.validationEngine-el.js" />
+    <Content Include="SiteFiles\jQuery plugins\jQuery-Validation-Engine-master\js\languages\jquery.validationEngine-en.js" />
+    <Content Include="SiteFiles\jQuery plugins\jQuery-Validation-Engine-master\js\languages\jquery.validationEngine-es.js" />
+    <Content Include="SiteFiles\jQuery plugins\jQuery-Validation-Engine-master\js\languages\jquery.validationEngine-et.js" />
+    <Content Include="SiteFiles\jQuery plugins\jQuery-Validation-Engine-master\js\languages\jquery.validationEngine-fa.js" />
+    <Content Include="SiteFiles\jQuery plugins\jQuery-Validation-Engine-master\js\languages\jquery.validationEngine-fi.js" />
+    <Content Include="SiteFiles\jQuery plugins\jQuery-Validation-Engine-master\js\languages\jquery.validationEngine-fr.js" />
+    <Content Include="SiteFiles\jQuery plugins\jQuery-Validation-Engine-master\js\languages\jquery.validationEngine-he.js" />
+    <Content Include="SiteFiles\jQuery plugins\jQuery-Validation-Engine-master\js\languages\jquery.validationEngine-hr.js" />
+    <Content Include="SiteFiles\jQuery plugins\jQuery-Validation-Engine-master\js\languages\jquery.validationEngine-hu.js" />
+    <Content Include="SiteFiles\jQuery plugins\jQuery-Validation-Engine-master\js\languages\jquery.validationEngine-id.js" />
+    <Content Include="SiteFiles\jQuery plugins\jQuery-Validation-Engine-master\js\languages\jquery.validationEngine-it.js" />
+    <Content Include="SiteFiles\jQuery plugins\jQuery-Validation-Engine-master\js\languages\jquery.validationEngine-ja.js" />
+    <Content Include="SiteFiles\jQuery plugins\jQuery-Validation-Engine-master\js\languages\jquery.validationEngine-lt.js" />
+    <Content Include="SiteFiles\jQuery plugins\jQuery-Validation-Engine-master\js\languages\jquery.validationEngine-nl.js" />
+    <Content Include="SiteFiles\jQuery plugins\jQuery-Validation-Engine-master\js\languages\jquery.validationEngine-no.js" />
+    <Content Include="SiteFiles\jQuery plugins\jQuery-Validation-Engine-master\js\languages\jquery.validationEngine-pl.js" />
+    <Content Include="SiteFiles\jQuery plugins\jQuery-Validation-Engine-master\js\languages\jquery.validationEngine-pt.js" />
+    <Content Include="SiteFiles\jQuery plugins\jQuery-Validation-Engine-master\js\languages\jquery.validationEngine-pt_BR.js" />
+    <Content Include="SiteFiles\jQuery plugins\jQuery-Validation-Engine-master\js\languages\jquery.validationEngine-ro.js" />
+    <Content Include="SiteFiles\jQuery plugins\jQuery-Validation-Engine-master\js\languages\jquery.validationEngine-ru.js" />
+    <Content Include="SiteFiles\jQuery plugins\jQuery-Validation-Engine-master\js\languages\jquery.validationEngine-sr_Cyrl.js" />
+    <Content Include="SiteFiles\jQuery plugins\jQuery-Validation-Engine-master\js\languages\jquery.validationEngine-sr_Latn.js" />
+    <Content Include="SiteFiles\jQuery plugins\jQuery-Validation-Engine-master\js\languages\jquery.validationEngine-sv.js" />
+    <Content Include="SiteFiles\jQuery plugins\jQuery-Validation-Engine-master\js\languages\jquery.validationEngine-th.js" />
+    <Content Include="SiteFiles\jQuery plugins\jQuery-Validation-Engine-master\js\languages\jquery.validationEngine-tr.js" />
+    <Content Include="SiteFiles\jQuery plugins\jQuery-Validation-Engine-master\js\languages\jquery.validationEngine-uk_UA.js" />
+    <Content Include="SiteFiles\jQuery plugins\jQuery-Validation-Engine-master\js\languages\jquery.validationEngine-vi.js" />
+    <Content Include="SiteFiles\jQuery plugins\jQuery-Validation-Engine-master\js\languages\jquery.validationEngine-zh_CN.js" />
+    <Content Include="SiteFiles\jQuery plugins\jQuery-Validation-Engine-master\js\languages\jquery.validationEngine-zh_HK.js" />
+    <Content Include="SiteFiles\jQuery plugins\jQuery-Validation-Engine-master\js\languages\jquery.validationEngine-zh_TW.js" />
+    <Content Include="SiteFiles\jQuery plugins\jQueryDatatbles\all.min.css" />
+    <Content Include="SiteFiles\jQuery plugins\jQueryDatatbles\dataTables.bootstrap4.min.css" />
+    <Content Include="SiteFiles\jQuery plugins\jQueryDatatbles\dataTables.bootstrap4.min.js" />
+    <Content Include="SiteFiles\jQuery plugins\jQueryDatatbles\dataTables.responsive.min.js" />
+    <Content Include="SiteFiles\jQuery plugins\jQueryDatatbles\jquery.dataTables.min.js" />
+    <Content Include="SiteFiles\jQuery plugins\jQueryDatatbles\responsive.bootstrap.min.css" />
+    <Content Include="SiteFiles\jQuery plugins\jQueryDatatbles\responsive.bootstrap.min.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\compressed\legacy.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\compressed\picker.date.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\compressed\picker.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\compressed\picker.time.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\compressed\themes\classic.css" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\compressed\themes\classic.date.css" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\compressed\themes\classic.time.css" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\compressed\themes\default.css" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\compressed\themes\default.date.css" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\compressed\themes\default.time.css" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\compressed\themes\rtl.css" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\compressed\translations\ar.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\compressed\translations\bg_BG.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\compressed\translations\bs_BA.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\compressed\translations\ca_ES.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\compressed\translations\cs_CZ.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\compressed\translations\da_DK.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\compressed\translations\de_DE.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\compressed\translations\el_GR.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\compressed\translations\es_ES.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\compressed\translations\et_EE.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\compressed\translations\eu_ES.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\compressed\translations\fa_IR.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\compressed\translations\fi_FI.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\compressed\translations\fr_FR.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\compressed\translations\gl_ES.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\compressed\translations\he_IL.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\compressed\translations\hi_IN.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\compressed\translations\hr_HR.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\compressed\translations\hu_HU.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\compressed\translations\id_ID.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\compressed\translations\is_IS.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\compressed\translations\it_IT.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\compressed\translations\ja_JP.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\compressed\translations\ko_KR.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\compressed\translations\lt_LT.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\compressed\translations\lv_LV.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\compressed\translations\nb_NO.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\compressed\translations\ne_NP.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\compressed\translations\nl_NL.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\compressed\translations\no_NO.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\compressed\translations\pl_PL.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\compressed\translations\pt_BR.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\compressed\translations\pt_PT.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\compressed\translations\ro_RO.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\compressed\translations\ru_RU.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\compressed\translations\sk_SK.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\compressed\translations\sl_SI.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\compressed\translations\sv_SE.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\compressed\translations\th_TH.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\compressed\translations\tr_TR.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\compressed\translations\uk_UA.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\compressed\translations\vi_VN.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\compressed\translations\zh_CN.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\compressed\translations\zh_TW.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\legacy.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\picker.date.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\picker.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\picker.time.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\themes\classic.css" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\themes\classic.date.css" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\themes\classic.time.css" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\themes\default.css" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\themes\default.date.css" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\themes\default.time.css" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\themes\rtl.css" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\translations\ar.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\translations\bg_BG.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\translations\bs_BA.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\translations\ca_ES.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\translations\cs_CZ.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\translations\da_DK.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\translations\de_DE.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\translations\el_GR.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\translations\es_ES.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\translations\et_EE.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\translations\eu_ES.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\translations\fa_ir.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\translations\fi_FI.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\translations\fr_FR.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\translations\gl_ES.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\translations\he_IL.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\translations\hi_IN.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\translations\hr_HR.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\translations\hu_HU.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\translations\id_ID.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\translations\is_IS.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\translations\it_IT.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\translations\ja_JP.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\translations\ko_KR.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\translations\lt_LT.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\translations\lv_LV.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\translations\nb_NO.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\translations\ne_NP.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\translations\nl_NL.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\translations\pl_PL.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\translations\pt_BR.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\translations\pt_PT.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\translations\ro_RO.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\translations\ru_RU.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\translations\sk_SK.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\translations\sl_SI.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\translations\sv_SE.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\translations\th_TH.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\translations\tr_TR.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\translations\uk_UA.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\translations\vi_VN.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\translations\zh_CN.js" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\translations\zh_TW.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-bootstrap-theme-master\dist\select2-bootstrap.css" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-bootstrap-theme-master\dist\select2-bootstrap.min.css" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-bootstrap-theme-master\docs\4.0.0.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-bootstrap-theme-master\docs\4.0.1.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-bootstrap-theme-master\docs\4.0.2.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-bootstrap-theme-master\docs\4.0.3.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-bootstrap-theme-master\docs\css\bootstrap.min.css" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-bootstrap-theme-master\docs\css\select2-bootstrap.css" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-bootstrap-theme-master\docs\favicon.ico" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-bootstrap-theme-master\docs\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-bootstrap-theme-master\docs\images\logo.png" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-bootstrap-theme-master\docs\index.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-bootstrap-theme-master\docs\js\anchor.min.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-bootstrap-theme-master\docs\js\bootstrap.min.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-bootstrap-theme-master\docs\js\respond.min.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-bootstrap-theme-master\docs\_includes\footer-links.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-bootstrap-theme-master\docs\_includes\footer.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-bootstrap-theme-master\docs\_includes\head.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-bootstrap-theme-master\docs\_includes\navbar.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-bootstrap-theme-master\docs\_includes\scripts.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-bootstrap-theme-master\docs\_includes\select2-select.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-bootstrap-theme-master\docs\_layouts\default.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-bootstrap-theme-master\docs\_layouts\minimal.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-bootstrap-theme-master\Gruntfile.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-bootstrap-theme-master\tests\less_test.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-bootstrap-theme-master\tests\scss_test.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\dist\css\select2.css" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\dist\css\select2.min.css" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\dist\js\i18n\ar.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\dist\js\i18n\az.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\dist\js\i18n\bg.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\dist\js\i18n\ca.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\dist\js\i18n\cs.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\dist\js\i18n\da.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\dist\js\i18n\de.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\dist\js\i18n\el.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\dist\js\i18n\en.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\dist\js\i18n\es.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\dist\js\i18n\et.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\dist\js\i18n\eu.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\dist\js\i18n\fa.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\dist\js\i18n\fi.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\dist\js\i18n\fr.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\dist\js\i18n\gl.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\dist\js\i18n\he.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\dist\js\i18n\hi.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\dist\js\i18n\hr.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\dist\js\i18n\hu.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\dist\js\i18n\id.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\dist\js\i18n\is.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\dist\js\i18n\it.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\dist\js\i18n\ja.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\dist\js\i18n\km.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\dist\js\i18n\ko.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\dist\js\i18n\lt.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\dist\js\i18n\lv.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\dist\js\i18n\mk.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\dist\js\i18n\ms.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\dist\js\i18n\nb.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\dist\js\i18n\nl.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\dist\js\i18n\pl.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\dist\js\i18n\pt-BR.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\dist\js\i18n\pt.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\dist\js\i18n\ro.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\dist\js\i18n\ru.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\dist\js\i18n\sk.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\dist\js\i18n\sr-Cyrl.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\dist\js\i18n\sr.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\dist\js\i18n\sv.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\dist\js\i18n\th.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\dist\js\i18n\tr.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\dist\js\i18n\uk.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\dist\js\i18n\vi.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\dist\js\i18n\zh-CN.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\dist\js\i18n\zh-TW.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\dist\js\select2.full.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\dist\js\select2.full.min.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\dist\js\select2.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\dist\js\select2.min.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\announcements-4.0.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\browserconfig.xml" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\community.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\examples.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\images\android-chrome-36x36.png" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\images\android-chrome-48x48.png" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\images\android-chrome-72x72.png" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\images\apple-touch-icon-57x57.png" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\images\apple-touch-icon-60x60.png" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\images\apple-touch-icon-72x72.png" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\images\apple-touch-icon-precomposed.png" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\images\apple-touch-icon.png" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\images\favicon-16x16.png" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\images\favicon-32x32.png" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\images\favicon.ico" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\images\logo.png" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\images\mstile-150x150.png" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\images\mstile-310x150.png" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\images\mstile-70x70.png" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\images\safari-pinned-tab.svg" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\index.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\options-old.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\options.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\vendor\fonts\fontawesome-webfont.svg" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\vendor\images\flags\ak.png" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\vendor\images\flags\al.png" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\vendor\images\flags\ar.png" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\vendor\images\flags\az.png" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\vendor\images\flags\ca.png" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\vendor\images\flags\co.png" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\vendor\images\flags\ct.png" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\vendor\images\flags\de.png" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\vendor\images\flags\fl.png" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\vendor\images\flags\ga.png" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\vendor\images\flags\hi.png" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\vendor\images\flags\ia.png" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\vendor\images\flags\id.png" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\vendor\images\flags\il.png" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\vendor\images\flags\in.png" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\vendor\images\flags\ks.png" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\vendor\images\flags\ky.png" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\vendor\images\flags\la.png" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\vendor\images\flags\ma.png" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\vendor\images\flags\md.png" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\vendor\images\flags\me.png" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\vendor\images\flags\mi.png" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\vendor\images\flags\mn.png" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\vendor\images\flags\mo.png" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\vendor\images\flags\ms.png" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\vendor\images\flags\mt.png" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\vendor\images\flags\nc.png" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\vendor\images\flags\nd.png" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\vendor\images\flags\ne.png" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\vendor\images\flags\nh.png" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\vendor\images\flags\nj.png" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\vendor\images\flags\nm.png" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\vendor\images\flags\nv.png" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\vendor\images\flags\ny.png" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\vendor\images\flags\oh.png" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\vendor\images\flags\ok.png" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\vendor\images\flags\or.png" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\vendor\images\flags\pa.png" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\vendor\images\flags\ri.png" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\vendor\images\flags\sc.png" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\vendor\images\flags\sd.png" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\vendor\images\flags\tn.png" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\vendor\images\flags\tx.png" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\vendor\images\flags\ut.png" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\vendor\images\flags\va.png" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\vendor\images\flags\vt.png" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\vendor\images\flags\wa.png" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\vendor\images\flags\wi.png" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\vendor\images\flags\wv.png" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\vendor\images\flags\wy.png" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\vendor\js\anchor.min.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\vendor\js\bootstrap.min.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\vendor\js\jquery.min.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\vendor\js\placeholders.jquery.min.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\vendor\js\prettify.min.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_includes\examples\basics.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_includes\examples\data.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_includes\examples\disabled-mode.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_includes\examples\disabled-results.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_includes\examples\hide-search.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_includes\examples\localization-rtl-diacritics.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_includes\examples\matcher.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_includes\examples\multiple-max.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_includes\examples\placeholders.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_includes\examples\programmatic-control.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_includes\examples\tags.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_includes\examples\themes-templating-responsive-design.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_includes\examples\tokenizer.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_includes\footer.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_includes\ga.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_includes\head.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_includes\js-source-states.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_includes\navigation.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_includes\nav\announcements-4.0.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_includes\nav\examples.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_includes\nav\options-old.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_includes\nav\options.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_includes\notice-previous.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_includes\options-old\adapters.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_includes\options-old\backwards-compatibility.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_includes\options-old\core-options.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_includes\options-old\dropdown.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_includes\options-old\events.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_includes\options-old\setting-default-options.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_includes\options\compatibility.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_includes\options\compatibility\initial-selection.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_includes\options\compatibility\introduction.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_includes\options\compatibility\matcher.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_includes\options\compatibility\query-function.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_includes\options\compatibility\text-input.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_includes\options\core.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_includes\options\core\amd-support.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_includes\options\core\data-attributes.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_includes\options\core\options.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_includes\options\data.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_includes\options\data\ajax.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_includes\options\data\array.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_includes\options\data\select.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_includes\options\dropdown.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_includes\options\dropdown\filtering.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_includes\options\dropdown\placement.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_includes\options\dropdown\selections.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_includes\options\dropdown\tagging.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_includes\options\events.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_includes\options\events\internal.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_includes\options\events\jquery.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_includes\options\introduction.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_includes\options\not-written.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_includes\options\selections.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_includes\options\selections\clearing-selections.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_includes\options\selections\multiple.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_includes\options\selections\placeholder.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_includes\options\selections\templating.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_includes\social-buttons.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_layouts\default.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_layouts\home.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\Gruntfile.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\banner.end.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\banner.start.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\jquery.mousewheel.shim.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\jquery.select2.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\jquery.shim.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\compat\containerCss.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\compat\dropdownCss.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\compat\initSelection.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\compat\inputData.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\compat\matcher.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\compat\query.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\compat\utils.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\core.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\data\ajax.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\data\array.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\data\base.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\data\maximumInputLength.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\data\maximumSelectionLength.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\data\minimumInputLength.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\data\select.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\data\tags.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\data\tokenizer.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\defaults.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\diacritics.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\dropdown.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\dropdown\attachBody.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\dropdown\attachContainer.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\dropdown\closeOnSelect.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\dropdown\hidePlaceholder.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\dropdown\infiniteScroll.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\dropdown\minimumResultsForSearch.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\dropdown\search.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\dropdown\selectOnClose.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\dropdown\stopPropagation.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\i18n\ar.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\i18n\az.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\i18n\bg.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\i18n\ca.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\i18n\cs.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\i18n\da.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\i18n\de.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\i18n\el.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\i18n\en.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\i18n\es.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\i18n\et.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\i18n\eu.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\i18n\fa.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\i18n\fi.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\i18n\fr.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\i18n\gl.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\i18n\he.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\i18n\hi.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\i18n\hr.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\i18n\hu.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\i18n\id.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\i18n\is.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\i18n\it.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\i18n\ja.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\i18n\km.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\i18n\ko.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\i18n\lt.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\i18n\lv.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\i18n\mk.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\i18n\ms.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\i18n\nb.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\i18n\nl.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\i18n\pl.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\i18n\pt-BR.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\i18n\pt.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\i18n\ro.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\i18n\ru.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\i18n\sk.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\i18n\sr-Cyrl.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\i18n\sr.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\i18n\sv.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\i18n\th.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\i18n\tr.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\i18n\uk.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\i18n\vi.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\i18n\zh-CN.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\i18n\zh-TW.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\keys.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\options.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\results.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\selection\allowClear.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\selection\base.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\selection\clickMask.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\selection\eventRelay.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\selection\multiple.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\selection\placeholder.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\selection\search.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\selection\single.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\selection\stopPropagation.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\translation.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\select2\utils.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\wrapper.end.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\js\wrapper.start.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\tests\a11y\search-tests.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\tests\a11y\selection-tests.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\tests\data\array-tests.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\tests\data\base-tests.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\tests\data\inputData-tests.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\tests\data\maximumInputLength-tests.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\tests\data\maximumSelectionLength-tests.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\tests\data\minimumInputLength-tests.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\tests\data\select-tests.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\tests\data\tags-tests.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\tests\data\tokenizer-tests.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\tests\dropdown\dropdownCss-tests.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\tests\dropdown\positioning-tests.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\tests\dropdown\selectOnClose-tests.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\tests\dropdown\stopPropagation-tests.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\tests\helpers.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\tests\integration.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\tests\integration\dom-changes.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\tests\integration\jquery-calls.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\tests\integration\select2-methods.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\tests\options\ajax-tests.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\tests\options\data-tests.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\tests\options\deprecated-tests.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\tests\options\translation-tests.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\tests\options\width-tests.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\tests\results\focusing-tests.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\tests\selection\allowClear-tests.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\tests\selection\containerCss-tests.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\tests\selection\multiple-tests.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\tests\selection\placeholder-tests.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\tests\selection\search-tests.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\tests\selection\single-tests.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\tests\selection\stopPropagation-tests.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\tests\unit.html" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\tests\utils\decorator-tests.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\tests\utils\escapeMarkup-tests.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\tests\vendor\jquery-1.7.2.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\tests\vendor\qunit-1.23.1.css" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\tests\vendor\qunit-1.23.1.js" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\vendor\jquery-2.1.0.js" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\build\toastr.css" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\build\toastr.min.css" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\build\toastr.min.js" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\demo.html" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\gulpfile.js" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\karma.conf.js" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\nuget\content\content\toastr.css" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\nuget\content\content\toastr.min.css" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\nuget\content\scripts\toastr.js" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\nuget\content\scripts\toastr.min.js" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\tests\qunit\qunit.css" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\tests\qunit\qunit.js" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\tests\toastr-tests.html" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\tests\unit\qunit-helper.js" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\tests\unit\toastr-tests.js" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\tests\unit\x.js" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\toastr-icon.png" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\toastr.js" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Account\ConfirmEmail.cshtml" />
+    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\SendCode.cshtml" />
+    <Content Include="Views\Account\VerifyCode.cshtml" />
+    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
+    <Content Include="Views\Manage\ChangePassword.cshtml" />
+    <Content Include="Views\Manage\Index.cshtml" />
+    <Content Include="Views\Manage\ManageLogins.cshtml" />
+    <Content Include="Views\Manage\SetPassword.cshtml" />
+    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
+    <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="SiteFiles\jQuery plugins\jQuery-Validation-Engine-master\.github\ISSUE_TEMPLATE.md" />
+    <Content Include="SiteFiles\jQuery plugins\jQuery-Validation-Engine-master\.github\PULL_REQUEST_TEMPLATE.md" />
+    <Content Include="SiteFiles\jQuery plugins\jQuery-Validation-Engine-master\.gitignore" />
+    <Content Include="SiteFiles\jQuery plugins\jQuery-Validation-Engine-master\bower.json" />
+    <Content Include="SiteFiles\jQuery plugins\jQuery-Validation-Engine-master\CHANGELOG.md" />
+    <Content Include="SiteFiles\jQuery plugins\jQuery-Validation-Engine-master\js\languages\jquery.validationEngine-uk" />
+    <Content Include="SiteFiles\jQuery plugins\jQuery-Validation-Engine-master\less\validationEngine.jquery.less" />
+    <Content Include="SiteFiles\jQuery plugins\jQuery-Validation-Engine-master\package.json" />
+    <Content Include="SiteFiles\jQuery plugins\jQuery-Validation-Engine-master\README.md" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\themes-source\base.date.less" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\themes-source\base.less" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\themes-source\base.time.less" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\themes-source\classic.date.less" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\themes-source\classic.less" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\themes-source\classic.time.less" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\themes-source\default.date.less" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\themes-source\default.less" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\themes-source\default.time.less" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\themes-source\rtl.less" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\themes-source\_variables.less" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\translations\FORMATTING.md" />
+    <Content Include="SiteFiles\jQuery plugins\pickadate.js-3.5.6\lib\translations\NAMING.md" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-bootstrap-theme-master\.gitignore" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-bootstrap-theme-master\bower.json" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-bootstrap-theme-master\docs\.gitignore" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-bootstrap-theme-master\docs\css\gh-pages.sass" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-bootstrap-theme-master\docs\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-bootstrap-theme-master\docs\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-bootstrap-theme-master\docs\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-bootstrap-theme-master\docs\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-bootstrap-theme-master\docs\_config.yml" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-bootstrap-theme-master\docs\_sass\_alert.sass" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-bootstrap-theme-master\docs\_sass\_anchorjs.sass" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-bootstrap-theme-master\docs\_sass\_buttons.sass" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-bootstrap-theme-master\docs\_sass\_common.sass" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-bootstrap-theme-master\docs\_sass\_extends.sass" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-bootstrap-theme-master\docs\_sass\_footer.sass" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-bootstrap-theme-master\docs\_sass\_home.sass" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-bootstrap-theme-master\docs\_sass\_jumbotron.sass" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-bootstrap-theme-master\docs\_sass\_mixins.sass" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-bootstrap-theme-master\docs\_sass\_navbar.sass" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-bootstrap-theme-master\docs\_sass\_select2-result-repository.sass" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-bootstrap-theme-master\docs\_sass\_variables.sass" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-bootstrap-theme-master\LICENSE" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-bootstrap-theme-master\package.json" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-bootstrap-theme-master\README.md" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-bootstrap-theme-master\src\build.less" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-bootstrap-theme-master\src\build.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-bootstrap-theme-master\src\select2-bootstrap.less" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-bootstrap-theme-master\src\select2-bootstrap.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-bootstrap-theme-master\tests\support\less.patch" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-bootstrap-theme-master\tests\support\scss.patch" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\.editorconfig" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\.gitignore" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\.jshintignore" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\.jshintrc" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\.travis.yml" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\bower.json" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\component.json" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\composer.json" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\CONTRIBUTING.md" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\.gitignore" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\css\bootstrap.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\css\font-awesome.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\css\s2-docs.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\dist\.gitkeep" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\images\manifest.json" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\README.md" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\vendor\fonts\fontawesome-webfont.eot" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\vendor\fonts\fontawesome-webfont.ttf" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\vendor\fonts\fontawesome-webfont.woff" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\vendor\fonts\fontawesome-webfont.woff2" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\vendor\fonts\FontAwesome.otf" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\mixins\_alerts.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\mixins\_background-variant.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\mixins\_border-radius.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\mixins\_buttons.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\mixins\_center-block.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\mixins\_clearfix.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\mixins\_forms.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\mixins\_gradients.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\mixins\_grid-framework.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\mixins\_grid.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\mixins\_hide-text.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\mixins\_image.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\mixins\_labels.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\mixins\_list-group.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\mixins\_nav-divider.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\mixins\_nav-vertical-align.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\mixins\_opacity.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\mixins\_pagination.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\mixins\_panels.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\mixins\_progress-bar.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\mixins\_reset-filter.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\mixins\_reset-text.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\mixins\_resize.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\mixins\_responsive-visibility.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\mixins\_size.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\mixins\_tab-focus.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\mixins\_table-row.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\mixins\_text-emphasis.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\mixins\_text-overflow.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\mixins\_vendor-prefixes.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\_alerts.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\_badges.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\_breadcrumbs.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\_button-groups.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\_buttons.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\_carousel.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\_close.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\_code.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\_component-animations.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\_dropdowns.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\_forms.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\_glyphicons.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\_grid.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\_input-groups.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\_jumbotron.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\_labels.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\_list-group.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\_media.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\_mixins.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\_modals.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\_navbar.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\_navs.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\_normalize.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\_pager.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\_pagination.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\_panels.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\_popovers.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\_print.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\_progress-bars.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\_responsive-embed.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\_responsive-utilities.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\_scaffolding.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\_tables.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\_theme.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\_thumbnails.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\_tooltip.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\_type.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\_utilities.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\_variables.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\bootstrap\_wells.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\font-awesome\_animated.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\font-awesome\_bordered-pulled.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\font-awesome\_core.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\font-awesome\_fixed-width.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\font-awesome\_icons.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\font-awesome\_larger.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\font-awesome\_list.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\font-awesome\_mixins.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\font-awesome\_path.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\font-awesome\_rotated-flipped.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\font-awesome\_stacked.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\vendor\font-awesome\_variables.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\_alert.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\_anchorjs.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\_buttons.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\_code.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\_dl-panels.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\_examples.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\_featurette.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\_footer.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\_hamburger.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\_home.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\_jumbotron.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\_layout.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\_nav.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\_prettify.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\_result-repository.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\_sidenav.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\_social.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\_syntax-highlighting.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\docs\_sass\_typography.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\ISSUE_TEMPLATE.md" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\LICENSE.md" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\package.json" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\PULL_REQUEST_TEMPLATE.md" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\README.md" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\select2.jquery.json" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\scss\core.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\scss\mixins\_gradients.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\scss\theme\classic\layout.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\scss\theme\classic\_defaults.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\scss\theme\classic\_multiple.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\scss\theme\classic\_single.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\scss\theme\default\layout.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\scss\theme\default\_multiple.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\scss\theme\default\_single.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\scss\_dropdown.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\scss\_multiple.scss" />
+    <Content Include="SiteFiles\jQuery plugins\select2\select2-master\src\scss\_single.scss" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\.gitattributes" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\.gitignore" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\.jscsrc" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\.jshintrc" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\.travis.yml" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\build\toastr.js.map" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\CHANGELOG.md" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\nuget\content\content\toastr.less" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\nuget\content\content\toastr.scss" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\nuget\content\scripts\toastr.min.js.map" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\nuget\toastr.1.0.0.nupkg" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\nuget\toastr.1.0.0.nuspec" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\nuget\toastr.1.0.1.nupkg" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\nuget\toastr.1.0.1.nuspec" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\nuget\toastr.1.0.2.nupkg" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\nuget\toastr.1.0.2.nuspec" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\nuget\toastr.1.0.3.nupkg" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\nuget\toastr.1.0.3.nuspec" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\nuget\toastr.1.1.0.nupkg" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\nuget\toastr.1.1.0.nuspec" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\nuget\toastr.1.1.1.nupkg" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\nuget\toastr.1.1.1.nuspec" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\nuget\toastr.1.1.2.nupkg" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\nuget\toastr.1.1.2.nuspec" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\nuget\toastr.1.1.3.nupkg" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\nuget\toastr.1.1.4.1.nupkg" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\nuget\toastr.1.1.4.1.nuspec" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\nuget\toastr.1.1.4.2.nupkg" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\nuget\toastr.1.1.4.2.nuspec" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\nuget\toastr.1.1.4.nupkg" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\nuget\toastr.1.1.4.nuspec" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\nuget\toastr.1.1.5.nupkg" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\nuget\toastr.1.1.5.nuspec" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\nuget\toastr.1.2.0.nupkg" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\nuget\toastr.1.2.0.nuspec" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\nuget\toastr.1.2.1.nupkg" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\nuget\toastr.1.2.1.nuspec" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\nuget\toastr.1.2.2.nupkg" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\nuget\toastr.1.2.2.nuspec" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\nuget\toastr.1.3.0.nupkg" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\nuget\toastr.1.3.0.nuspec" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\nuget\toastr.1.3.1.nupkg" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\nuget\toastr.1.3.1.nuspec" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\nuget\toastr.2.0.0-rc1.nupkg" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\nuget\toastr.2.0.0-rc1.nuspec" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\nuget\toastr.2.0.1.nupkg" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\nuget\toastr.2.0.1.nuspec" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\nuget\toastr.2.0.2.nupkg" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\nuget\toastr.2.0.2.nuspec" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\nuget\toastr.2.0.3.nupkg" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\nuget\toastr.2.0.3.nuspec" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\package.json" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\README.md" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\release checklist.md" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\toastr.less" />
+    <Content Include="SiteFiles\jQuery plugins\toastr-master\toastr.scss" />
+    <Content Include="Views\Query\CandInfoQuery.cshtml" />
+    <Content Include="Views\Upload\Index.cshtml" />
+    <Content Include="Views\TrainingProgram\Index.cshtml" />
+    <Content Include="Views\FiscalYear\Index.cshtml" />
+    <Content Include="Views\Ministries\Index.cshtml" />
+    <Content Include="Views\CourseProvider\Index.cshtml" />
+    <Content Include="Views\Query\CandidateCoursesQuery.cshtml" />
+    <Content Include="Views\Query\Rotativa\CandidateCoursesQuery_PDF.cshtml" />
+    <Content Include="Views\TrainingCourse\Create.cshtml" />
+    <Content Include="Views\TrainingCourse\Delete.cshtml" />
+    <Content Include="Views\TrainingCourse\Details.cshtml" />
+    <Content Include="Views\TrainingCourse\Edit.cshtml" />
+    <Content Include="Views\TrainingCourse\Index.cshtml" />
+    <Content Include="Views\Setting\Index.cshtml" />
+    <Content Include="Views\Profile\Index.cshtml" />
+    <Content Include="Views\PowerBIReport\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="SiteFiles\imgs\" />
+    <Folder Include="Uploads\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <None Include="packages.config" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>58265</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44352/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

@@ -1,0 +1,99 @@
+﻿@model List<MCITTrainingAPP.Models.EF.TBL_CandidatesInfo>
+@{
+    Layout = null;
+}
+
+<html dir="rtl">
+<head>
+    <title> </title>
+    <meta charset="utf-8" />
+
+    <link href="@Server.MapPath(Url.Content("~/Content/bootstrap.css"))" rel="stylesheet" type="text/css" />
+
+    <style>
+
+        table,
+        thead,
+        tr,
+        tbody,
+        th,
+        td {
+            text-align: center !important;
+            direction: rtl;
+        }
+
+        .table td {
+            text-align: center !important;
+            direction: rtl;
+        }
+
+        .table {
+            /*border: 1px solid #ccc;
+            float: right;
+            font-size: 16px;
+            background-color: cornsilk;*/
+            margin-top: 50px;
+            font-family: blissregular, Arial;
+            direction: rtl;
+        }
+
+
+        tr {
+            page-break-inside: avoid !important;
+        }
+
+
+        .header_for_pdf {
+            color: #4f5d73;
+            /*background-color: #ced2d8;*/
+            font-size: 20px !important;
+        }
+
+        .breakhere {
+            page-break-after: always
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="fade-in">
+            <div class="row">
+                <div class="col-md-12">
+                    @if (Model != null && Model.Count > 0)
+                    {
+                        <h3>بيانات المتدرب</h3>
+                        <table class="table jDataTable">
+                            <thead>
+                                <tr>
+                                    <th>الإسم بالكامل</th>
+                                    <th>الرقم القومى</th>
+                                    <th>رقم المحمول</th>
+                                    <th>البريد الإلكترونى</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var Emp in Model)
+                                {
+                                    <tr>
+                                        <td>@Emp.CandFullName</td>
+                                        <td>@Emp.CandNationalID</td>
+                                        <td>@Emp.CandMobileNumber</td>
+                                        <td>@Emp.CandEmail</td>
+                                    </tr>
+
+                                }
+                            </tbody>
+                        </table>
+
+                    }
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>

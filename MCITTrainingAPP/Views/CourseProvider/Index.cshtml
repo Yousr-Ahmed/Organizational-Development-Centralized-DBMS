@@ -1,0 +1,317 @@
+﻿<div class="container-fluid">
+    <div class="fade-in">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header"><h3 class="text-center"><strong>المراكز التدريبية</strong></h3></div>
+                    <div class="card-body">
+                        <div id="content" class="col-md-12">
+                            @if (User.IsInRole("Administrator"))
+                            {
+                            <button type="button" class="btn btn-default btn_main" data-bs-toggle="modal" data-bs-target="#myModal" onclick="clearTextBox();">إضافة سنتر</button><br /><br />
+                            }
+                            <table id="CourseProviderJqueryDataTable" class="jDataTable table table-striped dt-responsive  table-hover" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th style="display:none;visibility:hidden">
+                                            ID
+                                        </th>
+                                        <th>
+                                            المراكز التدريبية
+                                        </th>
+                                        <th>
+                                            التحكم
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="tbody">
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+
+                <!------------MinScreen-------->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">إضافة سنتر</h4>
+                        <button type="button" class="close" data-bs-dismiss="modal">×</button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group" style="display:none;visibility:hidden">
+                                <label for="CourseProviderID">ID</label>
+                                <input type="text" class="form-control" id="CourseProviderID" name="CourseProviderID" placeholder="CourseProviderID" disabled="disabled" />
+                            </div>
+                            <div class="form-group">
+                                <label for="Name">المراكز التدريبية</label>
+                                <!------------calling2nd------->
+                                <input type="text" class="form-control" id="CourseProviderName" name="CourseProviderName" placeholder="المركز التدريبي/السنتر" maxlength="50" />
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="btnAdd" onclick="return Add();">إضافة</button>
+                        <button type="button" class="btn btn-outline-warning" id="btnUpdate" style="display:none;" onclick="Update();">تعديل</button>
+                        <button type="button" class="btn btn-default" data-bs-dismiss="modal">إغلاق</button>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+@section Scripts {
+   
+<script type="text/javascript">
+  
+        ////Load Data in Table when documents is ready
+        $(document).ready(function () {
+            loadData();
+        });
+
+        //Load Data function
+        function loadData() {
+            $.ajax({
+                url:'@Url.Action("List", "CourseProvider")', 
+                type: "GET",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    var table = $('.jDataTable').DataTable();
+                    table.destroy();
+                    var table = $('.jDataTable').DataTable({
+                        "data": result,
+                        "columnDefs": [
+                            {
+                                "targets": [0],
+                                "visible": false,
+                                "searchable": false
+                            },
+                            {
+                                    "targets": [2], //third column
+                                    "visible": @(User.IsInRole("Administrator") ? "true" : "false"),
+                            } 
+
+                        ],
+                        "columns": [
+                            { "data": "CourseProviderID" },
+                            { "data": "CourseProviderName" },
+                            {
+                                "mRender": function (data, type, row) {
+                                    return '<a href="#" class="btn btn-outline-warning" onclick="return getbyID(' + row.CourseProviderID + ')">تعديل</a>   <a href="#" class="btn btn-outline-danger" onclick="Delele(' + row.CourseProviderID + ');return false;">حذف</a></td>';
+                                }
+                            }
+                        ],
+
+                        "aLengthMenu": [
+                            [5, 10, 25, -1],
+                            [5, 10, 25, "All"]
+                        ],
+                        "iDisplayLength": 5,
+
+                        "language": {
+                            "sProcessing": "جارٍ التحميل...",
+                            "sLengthMenu": "أظهر _MENU_ سجلات",
+                            "sZeroRecords": "لم يعثر على أية سجلات",
+                            "sInfo": "إظهار _START_ إلى _END_ من أصل _TOTAL_ سجل",
+                            "sInfoEmpty": "يعرض 0 إلى 0 من أصل 0 سجل",
+                            "sInfoFiltered": "(منتقاة من مجموع _MAX_ سجل)",
+                            "sInfoPostFix": "",
+                            "sSearch": "ابحث:",
+                            "sUrl": "",
+                            "oPaginate": {
+                                "sFirst": "الأول",
+                                "sPrevious": "السابق",
+                                "sNext": "التالي",
+                                "sLast": "الأخير"
+                            }
+                        }
+
+
+                    });
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+            })
+
+        }
+      
+
+        //Add Data Function
+        function Add() {
+            var res = validate();
+            if (res == false) {
+                return false;
+            }
+
+            var rip = {};
+            rip.CourseProviderName = $("#CourseProviderName").val();
+
+             
+
+            $.ajax({
+                type: "POST",
+                url:'@Url.Action("Add", "CourseProvider")',  
+                data: '{CourseProvider: ' + JSON.stringify(rip) + '}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    if (result == false) {
+                        ShowErrMess("برجاء المحاولة مرة أخري");
+                    }
+                    else {
+                        ShowSuccessMess("تمت الإضافة بنجاح");
+                    }
+                    loadData();
+                    $('#myModal').modal('hide'); 
+                    $('body').removeClass('modal-open');
+                    $('.modal-backdrop').remove();
+
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status);
+                    alert(thrownError);
+                }
+            });
+
+
+        }
+
+
+    function getbyID(ID) {
+            $('#CourseProviderName').css('border-color', 'lightgrey');
+            $.ajax({
+                url:'@Url.Action("GetbyID", "CourseProvider")', 
+                data: { 'ID': ID },
+                typr: "GET",
+                contentType: "application/json;charset=UTF-8",
+                dataType: "json",
+                success: function (result) {
+                    $('#CourseProviderID').val(result.CourseProviderID);
+                    $('#CourseProviderName').val(result.CourseProviderName);
+
+                    $('#myModal').modal('show');
+                    $('#btnUpdate').show();
+                    $('#btnAdd').hide();
+
+
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+            return false;
+        }
+
+        //function for updating employee's record
+        function Update() {
+            var res = validate();
+            if (res == false) {
+                return false;
+            } 
+
+            var rip = {};
+            rip.CourseProviderID = $("#CourseProviderID").val();
+            rip.CourseProviderName = $("#CourseProviderName").val();
+
+            $.ajax({
+                url:'@Url.Action("Update", "CourseProvider")', 
+                data: '{CourseProvider: ' + JSON.stringify(rip) + '}',
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    if (result == false) {
+                        ShowErrMess("برجاء المحاولة مرة أخري");
+                    }
+                    else {
+                        ShowSuccessMess("تم التعديل بنجاح");
+                    }
+                    loadData();
+                    $('#myModal').modal('hide');
+                    $('#CourseProviderID').val("");
+                    $('#CourseProviderName').val("");
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+        }
+
+
+
+        //function for deleting employee's record
+        function Delele(ID) {
+            var ans = confirm("هل تريد تأكيد الحذف؟");
+            if (ans) {
+                $.ajax({
+                    url: '@Url.Action("Delete", "CourseProvider")', 
+                    data: { 'ID': ID },
+                    type: "GET",
+                    contentType: "application/json;charset=UTF-8",
+                    dataType: "json",
+                    success: function (result) {
+                        if (result == false) {
+                            ShowErrMess("لا يمكنك الحذف(هناك بيانات مرتبطة بهذا السجل)");
+                        }
+                        else {
+                            ShowSuccessMess("تم الحذف بنجاح");
+                        }
+                        loadData();
+                    },
+                    error: function (errormessage) {
+                        alert(errormessage.responseText);
+                    }
+                });
+            }
+
+        }
+
+        //Function for clearing the textboxes
+        function clearTextBox() {
+            $('#CourseProviderID').val("");
+            $('#CourseProviderName').val("");
+            $('#btnUpdate').hide();
+            $('#btnAdd').show();
+            $('#CourseProviderName').css('border-color', 'lightgrey');
+        }
+        //Valdidation using jquery
+        function validate() {
+            var isValid = true;
+            //Calling2nd
+            if ($('#CourseProviderName').val().trim() == "") {
+                $('#CourseProviderName').css('border-color', 'Red');
+                isValid = false;
+            }
+            else {
+                $('#CourseProviderName').css('border-color', 'lightgrey');
+            }
+            return isValid;
+        }
+
+
+</script>
+
+
+
+
+}

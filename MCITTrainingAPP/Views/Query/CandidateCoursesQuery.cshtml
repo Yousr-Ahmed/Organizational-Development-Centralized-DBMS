@@ -1,0 +1,129 @@
+﻿@model List<MCITTrainingAPP.Models.EF.TBL_Candidates_Courses>
+<style>
+    .btn {
+        color: #fff;
+        text-transform: uppercase;
+        font-family: sans-serif;
+        box-sizing: border-box;
+        background: linear-gradient(90deg, yellow, orange, red,white, black, yellow);
+        background-size: 400%;
+        border-radius: 30px;
+    }
+
+        .btn:hover {
+            animation: animate 8s linear infinite;
+        }
+
+    @@keyframes animate {
+        0% {
+            background-position: 0%;
+        }
+
+        100% {
+            background-position: 400%;
+        }
+    }
+
+    .btn:before {
+        content: "";
+        background: linear-gradient(45deg, #f15523, #ef3224, #7c3697);
+        background-size: 400%;
+        border-radius: 40px;
+        opacity: 0;
+    }
+
+    .btn:hover:before {
+        filter: blur(20px);
+        opacity: 1;
+        animation: animate 8s linear infinite;
+    }
+
+    
+</style>
+@using (Html.BeginForm("CandidateCoursesQuery", "Query", FormMethod.Post))
+{
+    <div class="container">
+        <div class="row align-items-center justify-content-center my-4">
+            <div class="col-md-6 align-self-center">
+                <div class="card px-2">
+                    <div class="card-body">
+                        <div class="row jutify-content-center mb-3">
+
+                            <label for="NatID">الرقم القومى</label>
+                            <input type="text" name="NatID" class="form-control mt-3" />
+
+                        </div>
+                        <div class="row justify-content-center mb-1">
+                            <div class="col align-self-center">
+                                <div class="text-center"><input type="submit" value="بحث" class="btn btn-default" /></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+}
+@if (Model != null && Model.Count > 0)
+{
+    <div class="row">
+        <h3>البيانات الشخصية</h3>
+        <p><b>الإسم بالكامل:</b> @Model.FirstOrDefault().TBL_CandidatesInfo.CandFullName</p>
+        <p><b>الرقم القومي:</b> @Model.FirstOrDefault().TBL_CandidatesInfo.CandNationalID</p>
+        <p><b>البريد الإلكتروني:</b> @Model.FirstOrDefault().TBL_CandidatesInfo.CandEmail</p>
+        <p><b>رقم المحمول:</b> @Model.FirstOrDefault().TBL_CandidatesInfo.CandMobileNumber</p>
+    </div>
+    <hr />
+
+
+    <h3>البيانات التدريبية</h3>
+    <table class="table jDataTable">
+        <thead>
+            <tr>
+                <th>اسم الرنامج التدريبي</th>
+                <th>اسم الدورة اتدريبية</th>
+                <th>تاريخ بداية الدورة</th>
+                <th>تاريخ نهاية الدورة</th>
+                <th>موقف التنفيذ</th>
+                <th>العام المالي</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var Course in Model)
+            {
+                <tr>
+                    <td>@Course.LU_TrainingCourse.LU_TrainingProgram.TrainingProgramName</td>
+                    <td>@Course.LU_TrainingCourse.TrainingCourseName</td>
+                    <td>@Course.CandStartDate</td>
+                    <td>@Course.CandEndDate</td>
+                    <td>@Course.LU_StudyMechanism.StudyMechanismName</td>
+                    <td>@Course.TBL_FiscalYear.FiscalYear</td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+    <div style="text-align: center;">
+        <a href="@Url.Action("CoursesExportToExcel", "Query")"
+           type="submit"
+           id="runReport"
+           class="btn btn-default" style="height:40px">
+            حفظ كملف Excel
+            <img src="https://img.icons8.com/color/30/000000/microsoft-excel-2019--v1.png" class="img-responsive" />
+        </a>
+
+        <a href="@Url.Action("CoursesReportPDF", "Query")"
+           type="submit"
+           id="runReport"
+           class="btn btn-default" style="height:40px">
+            حفظ كملف pdf
+            <img src="https://img.icons8.com/color/30/000000/pdf-2--v1.png" class="img-responsive" />
+        </a>
+    </div>
+    <br />
+
+}
